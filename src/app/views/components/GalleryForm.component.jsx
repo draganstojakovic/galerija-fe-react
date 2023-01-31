@@ -1,12 +1,4 @@
-export const GalleryForm = ({
-  gallery,
-  onChange,
-  handleSubmit,
-  formText,
-  arr,
-  addInput,
-  handleChange,
-}) => {
+export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
   return (
     <>
       <h1>{formText}</h1>
@@ -31,23 +23,15 @@ export const GalleryForm = ({
         />
         <br />
         <label htmlFor="image_url">Image URLs*:</label>
-        {arr.map((item, i) => {
-          return (
-            <div key={i}>
-              <input
-                key={i}
-                onChange={handleChange}
-                value={item.value}
-                id={i}
-                type={item.type}
-              />
-              <br />
-            </div>
-          );
-        })}
-        <button type="button" onClick={() => addInput()}>
-          Add Another URL
-        </button>
+        <input
+          id="image_url"
+          type="text"
+          value={gallery.image_url}
+          required
+          onChange={(e) =>
+            onChange({ ...gallery, image_url: [e.target.value] })
+          }
+        />
         <br />
         <button type="submit">Submit</button>
       </form>
