@@ -1,23 +1,17 @@
-import { useState, useEffect } from "react";
-import { galleryService } from "../services/GalleryService";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllGalleriesAction } from "../store/galleries/slice";
+import { makeSelectGalleries } from "../store/galleries/selector";
 
 export const AllGalleriesPage = () => {
-  const [galleries, setGalleries] = useState([]);
-
-  const handleGetAllGalleries = async () => {
-    try {
-      const data = await galleryService.getAll();
-      setGalleries(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const dispatch = useDispatch();
+  const galleries = useSelector(makeSelectGalleries);
 
   useEffect(() => {
-    handleGetAllGalleries();
-  }, [])
+    dispatch(getAllGalleriesAction());
+  }, [dispatch]);
 
-  console.log(galleries);
+  console.log(galleries)
 
   return <h1>HomePage</h1>;
 };

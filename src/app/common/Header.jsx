@@ -4,12 +4,19 @@ export const Header = () => {
   return (
     <header>
       <nav>
-        <Link to="/">All Galleries</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/register">Register</Link>
-
-        <Link to="/my-galleries">My Galleries</Link>
-        <Link to="/create">Create New Gallery</Link>
+        {!!window.localStorage.getItem("loginToken") ? (
+          <>
+            <Link to="/">All Galleries</Link>
+            <Link to="/my-galleries">My Galleries</Link>
+            <Link to="/create">Create New Gallery</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/">All Galleries</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        )}
       </nav>
     </header>
   );

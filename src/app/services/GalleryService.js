@@ -10,6 +10,12 @@ class GalleryService extends ApiService {
   async getAll() {
     return await this.client.get("/galleries");
   }
+
+  async show(id) {
+    return await this.client.get(`/galleries/${id}`, {
+      headers: this.authService.getHeaders(),
+    });
+  }
 }
 
 export const galleryService = new GalleryService();

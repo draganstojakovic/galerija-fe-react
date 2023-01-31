@@ -41,7 +41,7 @@ class AuthService extends ApiService {
 
   setLoginTokenAndredirect(response) {
     window.localStorage.setItem("loginToken", response.data.access_token);
-    window.location.replace("/galleries");
+    window.location.replace("/");
   }
 }
 
