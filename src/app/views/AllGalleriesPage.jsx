@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { galleryService } from "../services/GalleryService";
 
-export const HomePage = () => {
+export const AllGalleriesPage = () => {
   const [galleries, setGalleries] = useState([]);
 
   const handleGetAllGalleries = async () => {
