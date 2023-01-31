@@ -3,18 +3,48 @@ import { Link } from "react-router-dom";
 export const Header = () => {
   return (
     <header>
-      <nav className="navbar navbar-light bg-light">
+      <nav className="navbar navbar-light bg-light d-flex justify-content-center">
         {!!window.localStorage.getItem("loginToken") ? (
           <>
-            <Link to="/">All Galleries</Link>
-            <Link to="/my-galleries">My Galleries</Link>
-            <Link to="/create">Create New Gallery</Link>
+            <div className="border border-primary">
+              <Link to="/" style={{ textDecoration: "none" }}>
+                {" "}
+                All Galleries
+              </Link>
+            </div>
+            <div className="border border-primary">
+              <Link to="/my-galleries" style={{ textDecoration: "none" }}>
+                {" "}
+                My Galleries
+              </Link>
+            </div>
+            <div className="border border-primary">
+              <Link to="/create" style={{ textDecoration: "none" }}>
+                {" "}
+                Create New Gallery
+              </Link>
+            </div>
           </>
         ) : (
           <>
-            <Link to="/">All Galleries</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
+            <div className="border border-primary">
+              <Link to="/" style={{ textDecoration: "none" }}>
+                {" "}
+                All Galleries
+              </Link>
+            </div>
+            <div className="border border-primary">
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                {" "}
+                Login
+              </Link>
+            </div>
+            <div className="border border-primary">
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                {" "}
+                Register
+              </Link>
+            </div>
           </>
         )}
       </nav>

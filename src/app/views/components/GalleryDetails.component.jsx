@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export const GalleryDetails = ({
+  galleryId,
   title,
   description,
   imageUrl,
@@ -9,11 +10,15 @@ export const GalleryDetails = ({
 }) => {
   return (
     <>
-      <span className="border-3">
-        <h3>{title}</h3>
+      <span>
+        <h1>
+          <Link to={`/galleries/${galleryId}`}>{title}</Link>
+        </h1>
         <p>{createdAt}</p>
         <p>
-          <img src={imageUrl[0]} width="200" alt="" />
+          <a href={imageUrl[0]} target="_blank">
+            <img src={imageUrl[0]} width="500" alt="" />
+          </a>
         </p>
         <p>
           <Link to={`/users/${user.id}`}>

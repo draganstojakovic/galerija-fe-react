@@ -33,8 +33,12 @@ export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
           }
         />
         <br />
-        <button type="submit">Submit</button>
+        <br />
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
+      <br />
     </>
   );
 };
