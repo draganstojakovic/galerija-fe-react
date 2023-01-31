@@ -4,7 +4,8 @@ const Pages = ({ children }) => {
   return (
     <>
       <Header />
-      {children}
+      <br />
+      <div className="card mx-5">{children}</div>
     </>
   );
 };
