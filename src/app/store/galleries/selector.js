@@ -1,0 +1,1 @@
+export const makeSelectGalleries = (state) => state.galleries.galleries;
