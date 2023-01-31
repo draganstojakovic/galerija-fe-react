@@ -7,8 +7,12 @@ class GalleryService extends ApiService {
     this.authService = authService;
   }
 
-  async getAll() {
-    return await this.client.get("/galleries");
+  async getFirstPage() {
+    return await this.client.get("/galleries?page=1");
+  }
+
+  async loadOneMorePage(page) {
+    return await this.client.get(`/galleries?page=${page}`);
   }
 
   async show(id) {

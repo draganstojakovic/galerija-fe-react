@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const Header = () => {
   return (
     <header>
-      <nav>
+      <nav className="navbar navbar-light bg-light">
         {!!window.localStorage.getItem("loginToken") ? (
           <>
             <Link to="/">All Galleries</Link>

@@ -6,13 +6,21 @@ const galleries = createSlice({
     galleries: [],
   },
   reducers: {
-    getAllGalleriesAction: () => {},
-    setAllGalleriesAction: (state, { payload }) => {
+    getFirstPageGalleriesAction: () => {},
+    setFirstPageGalleriesAction: (state, { payload }) => {
       state.galleries = payload;
+    },
+    getNextPageGalleriesAction: () => {},
+    setNextPageGalleriesAction: (state, { payload }) => {
+      state.galleries = [...galleries, payload];
     },
   },
 });
 
-export const { getAllGalleriesAction, setAllGalleriesAction } =
-  galleries.actions;
+export const {
+  getFirstPageGalleriesAction,
+  setFirstPageGalleriesAction,
+  getNextPageGalleriesAction,
+  setNextPageGalleriesAction,
+} = galleries.actions;
 export default galleries.reducer;
