@@ -31,7 +31,7 @@ export const RegisterPage = () => {
       });
     }
   };
-
+  console.log(user, checkUserPw)
   const handleRegisterNewUser = async (e) => {
     e.preventDefault();
     if (
@@ -39,7 +39,7 @@ export const RegisterPage = () => {
       !user.last_name ||
       !user.email ||
       !user.password ||
-      !user.confirm_password
+      !checkUserPw.confirm_password
     ) {
       alert("All fields are mandatory.");
       return;
