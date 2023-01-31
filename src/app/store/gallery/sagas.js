@@ -15,6 +15,21 @@ function* getSingleGallerySagaWatcher() {
   yield takeEvery("gallery/getSingleGalleryAction", getSingleGallery);
 }
 
+function* submitNewGallery({ payload }) {
+  try {
+    yield call([galleryService, "add"], payload.id, payload.data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* submitNewGallerySagaWatcher() {
+  yield takeEvery("gallery/submitNewgalleryAction", submitNewGallery);
+}
+
 export default function* rootGallerySaga() {
-  yield all([fork(getSingleGallerySagaWatcher)]);
+  yield all([
+    fork(getSingleGallerySagaWatcher),
+    fork(submitNewGallerySagaWatcher),
+  ]);
 }

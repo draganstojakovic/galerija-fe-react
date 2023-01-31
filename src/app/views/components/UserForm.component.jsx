@@ -14,7 +14,7 @@ export const UserForm = ({
       <form onSubmit={handleSubmit}>
         {register && (
           <>
-            <label htmlFor="first_name">First Name:</label>
+            <label htmlFor="first_name">First Name*:</label>
             <input
               id="first_name"
               type="text"
@@ -25,7 +25,7 @@ export const UserForm = ({
               }
             />
             <br />
-            <label htmlFor="last_name">Last Name:</label>
+            <label htmlFor="last_name">Last Name*:</label>
             <input
               id="last_name"
               type="text"
@@ -36,7 +36,7 @@ export const UserForm = ({
             <br />
           </>
         )}
-        <label htmlFor="email">Email:</label>
+        <label htmlFor="email">Email*:</label>
         <input
           id="email"
           type="text"
@@ -45,7 +45,7 @@ export const UserForm = ({
           onChange={(e) => onChange({ ...user, email: e.target.value })}
         />
         <br />
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Password*:</label>
         <input
           id="password"
           type="password"
@@ -56,7 +56,7 @@ export const UserForm = ({
         <br />
         {register && (
           <>
-            <label htmlFor="confirm_password">Confirm Password:</label>
+            <label htmlFor="confirm_password">Confirm Password*:</label>
             <input
               id="confirm_password"
               type="password"
@@ -70,7 +70,7 @@ export const UserForm = ({
               }
             />
             <br />
-            <label htmlFor="terms">Terms of usage:</label>
+            <label htmlFor="terms">Terms of usage*:</label>
             <input
               id="terms"
               type="checkbox"

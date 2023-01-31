@@ -28,9 +28,13 @@ const gallery = createSlice({
       state.gallery.comments = payload.comments;
       state.gallery.user = payload.user;
     },
+    submitNewgalleryAction: () => {},
   },
 });
 
-export const { getSingleGalleryAction, setSingleGalleryAction } =
-  gallery.actions;
+export const {
+  getSingleGalleryAction,
+  setSingleGalleryAction,
+  submitNewgalleryAction,
+} = gallery.actions;
 export default gallery.reducer;
