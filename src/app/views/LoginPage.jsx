@@ -29,6 +29,7 @@ export const LoginPage = () => {
       user={user}
       onChange={setUser}
       formText={"Log in"}
+      register={false}
     />
   );
 };

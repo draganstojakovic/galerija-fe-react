@@ -15,6 +15,18 @@ function* logInUserSagaWatcher() {
   yield takeEvery("auth/logInAuthUserAction", logInUser);
 }
 
+function* registerNewUser({ payload }) {
+  try {
+    yield call([authService, "register"], payload);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* registerNewUserSagaWatcher() {
+  yield takeEvery("auth/registerNewUserAction", registerNewUser);
+}
+
 function* getAuthUser() {
   try {
     const response = yield call([authService, "me"]);
@@ -29,5 +41,9 @@ function* getAuthUserSagaWatcher() {
 }
 
 export default function* rootAuthSaga() {
-  yield all([fork(logInUserSagaWatcher), fork(getAuthUserSagaWatcher)]);
+  yield all([
+    fork(logInUserSagaWatcher),
+    fork(getAuthUserSagaWatcher),
+    fork(registerNewUserSagaWatcher),
+  ]);
 }

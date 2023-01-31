@@ -13,14 +13,6 @@ export const SingleGalleryPage = () => {
     dispatch(getSingleGalleryAction(id));
   }, [id, dispatch]);
 
-  // const handleGetSingleGallery = async () => {
-  //   try {
-  //     dispatch(getSingleGalleryAction(Number(id)));
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-
   console.log(singleGallery);
 
   return <h1>SingleGalleryPage</h1>;
