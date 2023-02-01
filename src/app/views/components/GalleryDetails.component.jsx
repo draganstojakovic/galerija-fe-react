@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 export const GalleryDetails = ({
   galleryId,
   title,
-  description,
   imageUrl,
   createdAt,
   user,
@@ -18,8 +17,8 @@ export const GalleryDetails = ({
         </h1>
         <p>{createdAt}</p>
         <p>
-          <a href={imageUrl[0]} target="_blank">
-            <img src={imageUrl[0]} width="500" alt="" />
+          <a href={imageUrl[0]} target="_blank" rel="noreferrer">
+            <img src={imageUrl[0]} width="450" alt="" />
           </a>
         </p>
         <p>

@@ -38,7 +38,6 @@ export const AllGalleriesPage = () => {
               <GalleryDetails
                 galleryId={gallery.id}
                 title={gallery.title}
-                description={gallery.description}
                 imageUrl={gallery.image_url}
                 createdAt={gallery.created_at}
                 user={gallery.user}
