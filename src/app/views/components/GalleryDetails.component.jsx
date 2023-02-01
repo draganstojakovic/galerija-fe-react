@@ -11,7 +11,6 @@ export const GalleryDetails = ({
 }) => {
   const date = useFormattedDate(createdAt);
   return (
-    <>
       <span>
         <br />
         <h1>
@@ -30,6 +29,5 @@ export const GalleryDetails = ({
           </Link>
         </p>
       </span>
-    </>
   );
 };

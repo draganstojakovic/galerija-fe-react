@@ -9,8 +9,8 @@ export const AllGalleriesPage = () => {
   const dispatch = useDispatch();
   const galleries = useSelector(makeSelectGalleries);
 
-  const [currentPage, setCurrentPage] = useState(1);
- 
+  const [currentPage, setCurrentPage] = useState(2);
+
   useEffect(() => {
     dispatch(getFirstPageGalleriesAction());
   }, [dispatch]);

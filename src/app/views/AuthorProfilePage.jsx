@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { GalleryDetails } from "./components/GalleryDetails.component";
 import { getUserGalleriesAction } from "../store/galleries/slice";
 import { makeSelectUserGalleries } from "../store/galleries/selector";
 import { getOnlyUserAction } from "../store/user/slice";
 import { makeSelectOnlyUser } from "../store/user/selector";
+import { getNextPageUserGalleriesAction } from "../store/galleries/slice";
 
 export const AuthorProfilePage = () => {
   const dispatch = useDispatch();
@@ -13,11 +14,25 @@ export const AuthorProfilePage = () => {
   const galleries = useSelector(makeSelectUserGalleries);
   const { id } = useParams();
 
+  const [currentPage, setCurrentPage] = useState(1);
+
   useEffect(() => {
     dispatch(getOnlyUserAction(Number(id)));
     dispatch(getUserGalleriesAction(Number(id)));
   }, [id, dispatch]);
 
+  const handleLoadMoreGalleries = () => {
+    if (Number(galleries?.last_page) === Number(currentPage)) {
+      return;
+    }
+    setCurrentPage(currentPage + 1);
+    try {
+      dispatch(getNextPageUserGalleriesAction({ id: id, page: currentPage }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  console.log(currentPage)
   return (
     <>
       <div className="d-flex justify-content-center">
@@ -30,13 +45,13 @@ export const AuthorProfilePage = () => {
       <div className="card mx-5">
         {galleries && (
           <>
-          <br />
-          <br />
+            <br />
+            <br />
             <div className="d-flex justify-content-center">
               <h3>{user.first_name}'s Galleries:</h3>
             </div>
-            {galleries?.data?.map((gallery) => (
-              <div className="d-flex justify-content-center" key={gallery.id}>
+            {galleries?.data?.map((gallery, i) => (
+              <div className="d-flex justify-content-center" key={i}>
                 <GalleryDetails
                   galleryId={gallery.id}
                   title={gallery.title}
@@ -50,6 +65,21 @@ export const AuthorProfilePage = () => {
           </>
         )}
       </div>
+      <br />
+      <br />
+      {Number(galleries?.last_page) !== Number(currentPage) && (
+        <div className="d-flex justify-content-center">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => handleLoadMoreGalleries()}
+          >
+            Load More
+          </button>
+        </div>
+      )}
+      <br />
+      <br />
     </>
   );
 };

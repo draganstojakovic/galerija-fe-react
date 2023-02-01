@@ -13,7 +13,11 @@ const galleries = createSlice({
       last_page: "",
       data: [],
     },
-    userGalleries: [],
+    userGalleries: {
+      current_page: "",
+      last_page: "",
+      data: [],
+    },
   },
   reducers: {
     getFirstPageGalleriesAction: () => {},
@@ -32,17 +36,28 @@ const galleries = createSlice({
     setAuthUserGalleries: (state, { payload }) => {
       state.authUserGalleries.current_page = payload.current_page;
       state.authUserGalleries.last_page = payload.last_page;
-      state.authUserGalleries.data = [...state.galleries.data, payload.data];
+      state.authUserGalleries.data = payload.data;
     },
     getNextPageAuthUserGalleriesAction: () => {},
     setNextPageAuthUserGalleriesAction: (state, { payload }) => {
       state.authUserGalleries.current_page = payload.current_page;
       state.authUserGalleries.last_page = payload.last_page;
-      state.authUserGalleries.data = [...state.galleries.data, ...payload.data];
+      state.authUserGalleries.data = [
+        ...state.authUserGalleries.data,
+        ...payload.data,
+      ];
     },
     getUserGalleriesAction: () => {},
     setUserGalleriesAction: (state, { payload }) => {
-      state.userGalleries = payload;
+      state.userGalleries.current_page = payload.current_page;
+      state.userGalleries.last_page = payload.last_page;
+      state.userGalleries.data = payload.data;
+    },
+    getNextPageUserGalleriesAction: () => {},
+    setNextPageUserGalleriesAction: (state, { payload }) => {
+      state.userGalleries.current_page = payload.current_page;
+      state.userGalleries.last_page = payload.last_page;
+      state.userGalleries.data = [...state.userGalleries.data, ...payload.data];
     },
   },
 });
@@ -58,5 +73,7 @@ export const {
   setUserGalleriesAction,
   getNextPageAuthUserGalleriesAction,
   setNextPageAuthUserGalleriesAction,
+  getNextPageUserGalleriesAction,
+  setNextPageUserGalleriesAction,
 } = galleries.actions;
 export default galleries.reducer;
