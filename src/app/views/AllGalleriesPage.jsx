@@ -9,8 +9,8 @@ export const AllGalleriesPage = () => {
   const dispatch = useDispatch();
   const galleries = useSelector(makeSelectGalleries);
 
-  const [currentPage, setCurrentPage] = useState(2);
-
+  const [currentPage, setCurrentPage] = useState(1);
+ 
   useEffect(() => {
     dispatch(getFirstPageGalleriesAction());
   }, [dispatch]);
@@ -32,15 +32,15 @@ export const AllGalleriesPage = () => {
       <div className="card mx-5">
         {galleries && (
           <>
-            {galleries?.data?.map((gallery) => (
-              <div className="d-flex justify-content-center" key={gallery.id}>
+            {galleries?.data?.map((gallery, i) => (
+              <div className="d-flex justify-content-center" key={i}>
                 <GalleryDetails
                   galleryId={gallery.id}
                   title={gallery.title}
                   imageUrl={gallery.image_url}
                   createdAt={gallery.created_at}
                   user={gallery.user}
-                  userId={gallery.user.id}
+                  userId={gallery.user_id}
                 />
               </div>
             ))}
@@ -50,7 +50,7 @@ export const AllGalleriesPage = () => {
       </div>
       <br />
       <br />
-      {Number(galleries?.last_page) >= Number(currentPage) && (
+      {Number(galleries?.last_page) !== Number(currentPage) && (
         <div className="d-flex justify-content-center">
           <button
             type="button"

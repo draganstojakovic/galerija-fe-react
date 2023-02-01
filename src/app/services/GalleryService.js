@@ -20,7 +20,13 @@ class GalleryService extends ApiService {
   }
 
   async getAuthUserGalleries(id) {
-    return await this.client.get(`/authUserGalleries/${id}`, {
+    return await this.client.get(`/userGalleries/${id}`, {
+      headers: this.authService.getHeaders(),
+    });
+  }
+
+  async loadOneMoreUserGalleryPage(id, page) {
+    return await this.client.get(`/user/${id}/userGalleries?page=${page}`, {
       headers: this.authService.getHeaders(),
     });
   }

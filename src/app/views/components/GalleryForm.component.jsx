@@ -44,7 +44,6 @@ export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
           />
         </div>
         <br />
-        <br />
         <div className="d-flex justify-content-center">
           <button type="submit" className="btn btn-primary">
             Submit

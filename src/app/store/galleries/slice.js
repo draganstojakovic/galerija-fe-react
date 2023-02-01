@@ -8,7 +8,11 @@ const galleries = createSlice({
       last_page: "",
       data: [],
     },
-    authUserGalleries: [],
+    authUserGalleries: {
+      current_page: "",
+      last_page: "",
+      data: [],
+    },
     userGalleries: [],
   },
   reducers: {
@@ -26,7 +30,15 @@ const galleries = createSlice({
     },
     getAuthUserGalleries: () => {},
     setAuthUserGalleries: (state, { payload }) => {
-      state.authUserGalleries = payload;
+      state.authUserGalleries.current_page = payload.current_page;
+      state.authUserGalleries.last_page = payload.last_page;
+      state.authUserGalleries.data = [...state.galleries.data, payload.data];
+    },
+    getNextPageAuthUserGalleriesAction: () => {},
+    setNextPageAuthUserGalleriesAction: (state, { payload }) => {
+      state.authUserGalleries.current_page = payload.current_page;
+      state.authUserGalleries.last_page = payload.last_page;
+      state.authUserGalleries.data = [...state.galleries.data, ...payload.data];
     },
     getUserGalleriesAction: () => {},
     setUserGalleriesAction: (state, { payload }) => {
@@ -44,5 +56,7 @@ export const {
   setAuthUserGalleries,
   getUserGalleriesAction,
   setUserGalleriesAction,
+  getNextPageAuthUserGalleriesAction,
+  setNextPageAuthUserGalleriesAction,
 } = galleries.actions;
 export default galleries.reducer;
