@@ -5,17 +5,17 @@ import { makeSelectSingleGallery } from "../store/gallery/selector";
 import { getSingleGalleryAction } from "../store/gallery/slice";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { useFormattedDate } from "../hooks/useFormattedDate";
 
 export const SingleGalleryPage = () => {
   const { id } = useParams();
   const singleGallery = useSelector(makeSelectSingleGallery);
   const dispatch = useDispatch();
+  const date = useFormattedDate(singleGallery.created_at);
 
   useEffect(() => {
     dispatch(getSingleGalleryAction(id));
   }, [id, dispatch]);
-
-  console.log(singleGallery);
 
   return (
     <div>
@@ -28,6 +28,7 @@ export const SingleGalleryPage = () => {
         </Link>
       </h5>
       <br />
+      <p className="d-flex justify-content-center">{date}</p>
       {singleGallery.description ? (
         <>
           <div className="d-flex justify-content-center">
