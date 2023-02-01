@@ -3,6 +3,7 @@ import rootGalleriesSaga from "./galleries/sagas";
 import rootAuthSaga from "./auth/sagas";
 import rootGallerySaga from "./gallery/sagas";
 import rootUserSaga from "./user/sagas";
+import rootCommentSaga from "./comment/sagas";
 
 export default function* rootSaga() {
   yield all([
@@ -10,5 +11,6 @@ export default function* rootSaga() {
     rootGalleriesSaga(),
     rootGallerySaga(),
     rootUserSaga(),
+    rootCommentSaga(),
   ]);
 }

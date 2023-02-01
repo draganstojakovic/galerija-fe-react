@@ -11,6 +11,11 @@ const user = createSlice({
       galleries: [],
       comments: [],
     },
+    onlyUser: {
+      id: "",
+      first_name: "",
+      last_name: "",
+    },
   },
   reducers: {
     getSingleUserAction: () => {},
@@ -22,8 +27,19 @@ const user = createSlice({
       state.user.galleries = payload.galleries;
       state.user.comments = payload.comments;
     },
+    getOnlyUserAction: () => {},
+    setOnlyUserAction: (state, { payload }) => {
+      state.onlyUser.id = payload.id;
+      state.onlyUser.first_name = payload.first_name;
+      state.onlyUser.last_name = payload.last_name;
+    },
   },
 });
 
-export const { getSingleUserAction, setSingleUserAction } = user.actions;
+export const {
+  getSingleUserAction,
+  setSingleUserAction,
+  getOnlyUserAction,
+  setOnlyUserAction,
+} = user.actions;
 export default user.reducer;

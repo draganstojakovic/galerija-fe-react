@@ -4,7 +4,6 @@ import { getFirstPageGalleriesAction } from "../store/galleries/slice";
 import { makeSelectGalleries } from "../store/galleries/selector";
 import { getNextPageGalleriesAction } from "../store/galleries/slice";
 import { GalleryDetails } from "./components/GalleryDetails.component";
-import format from "date-fns/format";
 
 export const AllGalleriesPage = () => {
   const dispatch = useDispatch();
@@ -36,10 +35,7 @@ export const AllGalleriesPage = () => {
                   galleryId={gallery.id}
                   title={gallery.title}
                   imageUrl={gallery.image_url}
-                  createdAt={format(
-                    new Date(gallery.created_at),
-                    "yyyy-mm-dd hh:mm:ss"
-                  )}
+                  createdAt={gallery.created_at}
                   user={gallery.user}
                 />
               </div>

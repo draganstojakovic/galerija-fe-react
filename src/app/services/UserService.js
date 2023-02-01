@@ -1,6 +1,5 @@
 import ApiService from "./ApiService";
 import { authService } from "./AuthService";
-import axios from "axios";
 
 class UserService extends ApiService {
   constructor() {
@@ -9,8 +8,11 @@ class UserService extends ApiService {
   }
 
   async show(id) {
-    // return await this.client.get(`/users/${id}`);
-    return await axios.get(`http://localhost:8000/api/users/${id}`)
+    return await this.client.get(`/users/${id}`);
+  }
+
+  async showOnlyUser(id) {
+    return await this.client.get(`only-user/${id}`);
   }
 }
 

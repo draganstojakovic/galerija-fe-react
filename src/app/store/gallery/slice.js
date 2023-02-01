@@ -11,7 +11,6 @@ const gallery = createSlice({
       user_id: "",
       created_at: "",
       updated_at: "",
-      comments: [],
       user: {},
     },
   },
@@ -25,7 +24,6 @@ const gallery = createSlice({
       state.gallery.user_id = payload.user_id;
       state.gallery.created_at = payload.created_at;
       state.gallery.updated_at = payload.updated_at;
-      state.gallery.comments = payload.comments;
       state.gallery.user = payload.user;
     },
     submitNewgalleryAction: () => {},

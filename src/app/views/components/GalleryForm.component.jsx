@@ -1,7 +1,8 @@
 export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
   return (
     <>
-      <h1>{formText}</h1>
+      <h1 className="d-flex justify-content-center">{formText}</h1>
+      <br />
       <form onSubmit={handleSubmit} className="form-inline">
         <div className="form-group mx-sm-3 mb-2">
           <label htmlFor="title">Title*:</label>
@@ -22,7 +23,7 @@ export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
             id="description"
             type="text"
             value={gallery.description}
-            rows="10"
+            rows="7"
             onChange={(e) =>
               onChange({ ...gallery, description: e.target.value })
             }

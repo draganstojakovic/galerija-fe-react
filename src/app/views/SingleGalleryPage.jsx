@@ -7,12 +7,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { useFormattedDate } from "../hooks/useFormattedDate";
 import { CommentDetails } from "./components/CommentDetails.component";
-import format from "date-fns/format";
 import { CommentForm } from "./components/CommentForm.component";
+import { submitNewCommentAction } from "../store/comment/slice";
+import { showCommentsByGalleryIdAction } from "../store/comment/slice";
+import { makeSelectComments } from "../store/comment/selector";
 
 export const SingleGalleryPage = () => {
   const { id } = useParams();
   const singleGallery = useSelector(makeSelectSingleGallery);
+  const comments = useSelector(makeSelectComments);
   const dispatch = useDispatch();
   const date = useFormattedDate(singleGallery.created_at);
 
@@ -20,19 +23,26 @@ export const SingleGalleryPage = () => {
     content: "",
   });
 
-  console.log(comment)
-
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     if (!comment.content) {
       alert("Comment field cannot be blank");
       return;
     }
+    try {
+      dispatch(submitNewCommentAction({ id: id, data: comment }));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useEffect(() => {
     dispatch(getSingleGalleryAction(id));
   }, [id, dispatch]);
+
+  useEffect(() => {
+    dispatch(showCommentsByGalleryIdAction(Number(singleGallery?.id)));
+  }, [dispatch, singleGallery]);
 
   return (
     <div>
@@ -60,7 +70,7 @@ export const SingleGalleryPage = () => {
         </>
       ) : (
         <div className="d-flex justify-content-center">
-          . . .
+          <b>. . .</b>
           <br />
           <br />
         </div>
@@ -85,17 +95,23 @@ export const SingleGalleryPage = () => {
         />
       )}
       <br />
-      {singleGallery?.comments?.map((comment) => (
-        <div className="card mx-5" key={comment.id}>
-          <CommentDetails
-            content={comment.content}
-            createdAt={format(
-              new Date(comment.created_at),
-              "yyyy-mm-dd hh:mm:ss"
-            )}
-          />
+      <br />
+      {comments?.map((comment) => (
+        <div key={comment.id}>
+          <div className="card mx-5" key={comment.id}>
+            <CommentDetails
+              content={comment.content}
+              createdAt={comment.created_at}
+              userId={comment.user_id}
+            />
+          </div>
+          <br />
         </div>
       ))}
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

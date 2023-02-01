@@ -49,6 +49,7 @@ export const Header = () => {
           </>
         )}
       </nav>
+      <br />
     </header>
   );
 };

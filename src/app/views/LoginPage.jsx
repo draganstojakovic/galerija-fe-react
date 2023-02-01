@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logInAuthUserAction } from "../store/auth/slice";
 import { UserForm } from "./components/UserForm.component";
-import { unwrapResult } from "@reduxjs/toolkit";
+// import { unwrapResult } from "@reduxjs/toolkit";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-  const [errMsg, setErrMsg] = useState("");
+  // const [errMsg, setErrMsg] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
