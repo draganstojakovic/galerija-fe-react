@@ -32,6 +32,7 @@ export const MyGalleriesPage = () => {
                   imageUrl={gallery.image_url}
                   createdAt={gallery.created_at}
                   user={authUser}
+                  userId={authUser.id}
                 />
               </div>
             ))}

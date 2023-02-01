@@ -9,7 +9,6 @@ const user = createSlice({
       email: "",
       created_at: "",
       galleries: [],
-      comments: [],
     },
     onlyUser: {
       id: "",
@@ -25,7 +24,6 @@ const user = createSlice({
       state.user.email = payload.email;
       state.user.created_at = payload.created_at;
       state.user.galleries = payload.galleries;
-      state.user.comments = payload.comments;
     },
     getOnlyUserAction: () => {},
     setOnlyUserAction: (state, { payload }) => {

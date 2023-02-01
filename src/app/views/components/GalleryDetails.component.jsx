@@ -7,6 +7,7 @@ export const GalleryDetails = ({
   imageUrl,
   createdAt,
   user,
+  userId,
 }) => {
   const date = useFormattedDate(createdAt);
   return (
@@ -24,7 +25,7 @@ export const GalleryDetails = ({
           </a>
         </p>
         <p>
-          <Link to={`/authors/${user?.id}`}>
+          <Link to={`/authors/${userId}`}>
             {" "}
             {user.first_name} {user.last_name}
           </Link>

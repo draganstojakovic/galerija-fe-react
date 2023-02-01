@@ -1,17 +1,21 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getSingleUserAction } from "../store/user/slice";
-import { makeSelectUser } from "../store/user/selector";
 import { GalleryDetails } from "./components/GalleryDetails.component";
+import { getUserGalleriesAction } from "../store/galleries/slice";
+import { makeSelectUserGalleries } from "../store/galleries/selector";
+import { getOnlyUserAction } from "../store/user/slice";
+import { makeSelectOnlyUser } from "../store/user/selector";
 
 export const AuthorProfilePage = () => {
   const dispatch = useDispatch();
-  const user = useSelector(makeSelectUser);
+  const user = useSelector(makeSelectOnlyUser);
+  const galleries = useSelector(makeSelectUserGalleries);
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getSingleUserAction(Number(id)));
+    dispatch(getOnlyUserAction(Number(id)));
+    dispatch(getUserGalleriesAction(Number(id)));
   }, [id, dispatch]);
 
   return (
@@ -24,12 +28,12 @@ export const AuthorProfilePage = () => {
       <br />
       <br />
       <div>
-        {user.galleries && (
+        {galleries && (
           <>
             <div className="d-flex justify-content-center">
               <h3>{user.first_name}'s Galleries:</h3>
             </div>
-            {user.galleries.map((gallery) => (
+            {galleries?.data?.map((gallery) => (
               <div className="d-flex justify-content-center" key={gallery.id}>
                 <GalleryDetails
                   galleryId={gallery.id}
@@ -37,6 +41,7 @@ export const AuthorProfilePage = () => {
                   imageUrl={gallery.image_url}
                   createdAt={gallery.created_at}
                   user={user}
+                  userId={id}
                 />
               </div>
             ))}

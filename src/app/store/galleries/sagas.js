@@ -3,6 +3,7 @@ import { galleryService } from "../../services/GalleryService";
 import { setFirstPageGalleriesAction } from "./slice";
 import { setNextPageGalleriesAction } from "./slice";
 import { setAuthUserGalleries } from "./slice";
+import { setUserGalleriesAction } from "./slice";
 
 function* getGalleries() {
   try {
@@ -49,10 +50,24 @@ function* getAuthUserGalleriesSagaWatcher() {
   yield takeEvery("galleries/getAuthUserGalleries", getAuthUserGalleries);
 }
 
+function* getUserGalleries({ payload }) {
+  try {
+    const response = yield call([galleryService, "getUserGalleries"], payload);
+    yield put(setUserGalleriesAction(response.data));
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* getUserGalleriesSagaWatcher() {
+  yield takeEvery("galleries/getUserGalleriesAction", getUserGalleries);
+}
+
 export default function* rootGalleriesSaga() {
   yield all([
     fork(getGalleriesSagaWatcher),
     fork(getNextPageOfGalleriesSagaWatcher),
     fork(getAuthUserGalleriesSagaWatcher),
+    fork(getUserGalleriesSagaWatcher),
   ]);
 }

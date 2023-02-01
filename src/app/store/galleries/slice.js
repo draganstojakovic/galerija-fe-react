@@ -5,6 +5,7 @@ const galleries = createSlice({
   initialState: {
     galleries: [],
     authUserGalleries: [],
+    userGalleries: [],
   },
   reducers: {
     getFirstPageGalleriesAction: () => {},
@@ -19,6 +20,10 @@ const galleries = createSlice({
     setAuthUserGalleries: (state, { payload }) => {
       state.authUserGalleries = payload;
     },
+    getUserGalleriesAction: () => {},
+    setUserGalleriesAction: (state, { payload }) => {
+      state.userGalleries = payload;
+    },
   },
 });
 
@@ -29,5 +34,7 @@ export const {
   setNextPageGalleriesAction,
   getAuthUserGalleries,
   setAuthUserGalleries,
+  getUserGalleriesAction,
+  setUserGalleriesAction,
 } = galleries.actions;
 export default galleries.reducer;
