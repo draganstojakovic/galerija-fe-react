@@ -5,7 +5,7 @@ const Pages = ({ children }) => {
     <>
       <Header />
       <br />
-      <div className="card mx-5">{children}</div>
+      <div>{children}</div>
     </>
   );
 };
