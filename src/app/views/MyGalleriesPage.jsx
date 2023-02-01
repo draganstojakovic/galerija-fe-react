@@ -5,6 +5,7 @@ import { getAuthUserAction } from "../store/auth/slice";
 import { getAuthUserGalleries } from "../store/galleries/slice";
 import { makeSelectAuthUserGalleries } from "../store/galleries/selector";
 import { GalleryDetails } from "./components/GalleryDetails.component";
+import format from "date-fns/format";
 
 export const MyGalleriesPage = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,10 @@ export const MyGalleriesPage = () => {
                 galleryId={gallery.id}
                 title={gallery.title}
                 imageUrl={gallery.image_url}
-                createdAt={gallery.created_at}
+                createdAt={format(
+                  new Date(gallery.created_at),
+                  "yyyy-mm-dd hh:mm:ss"
+                )}
                 user={authUser}
               />
             </div>
