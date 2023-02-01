@@ -23,7 +23,7 @@ export const AllGalleriesPage = () => {
       console.error(err);
     }
   };
-
+  
   return (
     <>
       <div className="card mx-5">
