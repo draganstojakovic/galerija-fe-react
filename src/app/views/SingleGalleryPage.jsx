@@ -39,9 +39,9 @@ export const SingleGalleryPage = () => {
 
       <Carousel>
         {singleGallery &&
-          singleGallery.image_url.map((url) => (
-            <div>
-                <img src={url} />
+          singleGallery.image_url.map((url, i) => (
+            <div key={i} onClick={() => window.open(url)}>
+              <img src={url} />
             </div>
           ))}
       </Carousel>
@@ -50,5 +50,3 @@ export const SingleGalleryPage = () => {
     </div>
   );
 };
-
-// onClick={() => window.open({url})}
