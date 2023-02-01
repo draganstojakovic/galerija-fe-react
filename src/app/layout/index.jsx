@@ -4,8 +4,11 @@ const Pages = ({ children }) => {
   return (
     <>
       <Header />
-      <br />
-      <div>{children}</div>
+      <div className="card mx-5">
+        <br />
+        <br />
+        {children}
+      </div>
     </>
   );
 };

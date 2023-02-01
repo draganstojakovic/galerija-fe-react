@@ -8,6 +8,8 @@ export const Header = () => {
         {!!window.localStorage.getItem("loginToken") ? (
           <>
             <div style={{ color: "#f8f9fa" }}>_</div>
+            <h5>Galerija</h5>
+            <div style={{ color: "#f8f9fa" }}>_</div>
             <Link to="/" style={{ textDecoration: "none" }}>
               {" "}
               All Galleries
@@ -27,6 +29,8 @@ export const Header = () => {
           </>
         ) : (
           <>
+            <div style={{ color: "#f8f9fa" }}>_</div>
+            <h5>Galerija</h5>
             <div style={{ color: "#f8f9fa" }}>_</div>
             <Link to="/" style={{ textDecoration: "none" }}>
               {" "}

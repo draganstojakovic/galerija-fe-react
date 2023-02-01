@@ -14,8 +14,6 @@ export const AllGalleriesPage = () => {
     dispatch(getFirstPageGalleriesAction());
   }, [dispatch]);
 
-  console.log(galleries);
-
   const handleLoadMoreGalleries = () => {
     try {
       if (galleries?.last_page === 100000) {
@@ -29,34 +27,38 @@ export const AllGalleriesPage = () => {
 
   return (
     <>
-      {galleries && (
-        <>
-          {galleries?.data?.map((gallery) => (
-            <div className="d-flex justify-content-center" key={gallery.id}>
-              <GalleryDetails
-                galleryId={gallery.id}
-                title={gallery.title}
-                imageUrl={gallery.image_url}
-                createdAt={format(
-                  new Date(gallery.created_at),
-                  "yyyy-mm-dd hh:mm:ss"
-                )}
-                user={gallery.user}
-              />
-            </div>
-          ))}
-        </>
-      )}
+      <div className="card mx-5">
+        {galleries && (
+          <>
+            {galleries?.data?.map((gallery) => (
+              <div className="d-flex justify-content-center" key={gallery.id}>
+                <GalleryDetails
+                  galleryId={gallery.id}
+                  title={gallery.title}
+                  imageUrl={gallery.image_url}
+                  createdAt={format(
+                    new Date(gallery.created_at),
+                    "yyyy-mm-dd hh:mm:ss"
+                  )}
+                  user={gallery.user}
+                />
+              </div>
+            ))}
+          </>
+        )}
+        <br />
+      </div>
       <br />
       <br />
-      <button
-        type="button"
-        className="btn btn-primary"
-        onClick={() => handleLoadMoreGalleries()}
-      >
-        Load More
-      </button>
-      <br />
+      <div className="d-flex justify-content-center">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => handleLoadMoreGalleries()}
+        >
+          Load More
+        </button>
+      </div>
       <br />
       <br />
     </>

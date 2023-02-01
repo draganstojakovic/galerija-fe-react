@@ -22,29 +22,34 @@ export const MyGalleriesPage = () => {
 
   return (
     <>
-      {galleries && (
-        <>
-          {galleries?.data?.map((gallery) => (
-            <div className="d-flex justify-content-center" key={gallery.id}>
-              <GalleryDetails
-                galleryId={gallery.id}
-                title={gallery.title}
-                imageUrl={gallery.image_url}
-                createdAt={format(
-                  new Date(gallery.created_at),
-                  "yyyy-mm-dd hh:mm:ss"
-                )}
-                user={authUser}
-              />
-            </div>
-          ))}
-        </>
-      )}
+      <div className="card mx-5">
+        {galleries && (
+          <>
+            {galleries?.data?.map((gallery) => (
+              <div className="d-flex justify-content-center" key={gallery.id}>
+                <GalleryDetails
+                  galleryId={gallery.id}
+                  title={gallery.title}
+                  imageUrl={gallery.image_url}
+                  createdAt={format(
+                    new Date(gallery.created_at),
+                    "yyyy-mm-dd hh:mm:ss"
+                  )}
+                  user={authUser}
+                />
+              </div>
+            ))}
+          </>
+        )}
+        <br />
+        <br />
+      </div>
       <br />
-      <br />
-      <button type="button" className="btn btn-primary">
-        Load More
-      </button>
+      <div className="d-flex justify-content-center">
+        <button type="button" className="btn btn-primary">
+          Load More
+        </button>
+      </div>
       <br />
       <br />
     </>
