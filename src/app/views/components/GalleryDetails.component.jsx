@@ -22,7 +22,7 @@ export const GalleryDetails = ({
           </a>
         </p>
         <p>
-          <Link to={`/users/${user.id}`}>
+          <Link to={`/authors/${user.id}`}>
             {" "}
             {user.first_name} {user.last_name}
           </Link>

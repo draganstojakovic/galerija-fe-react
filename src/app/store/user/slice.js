@@ -8,19 +8,19 @@ const user = createSlice({
       last_name: "",
       email: "",
       created_at: "",
-      galleries: {},
-      comments: {},
+      galleries: [],
+      comments: [],
     },
-    reducers: {
-      getSingleUserAction: () => {},
-      setSingleUserAction: (state, { payload }) => {
-        state.first_name = payload.first_name;
-        state.last_name = payload.last_name;
-        state.email = payload.email;
-        state.created_at = payload.created_at;
-        state.galleries = payload.galleries;
-        state.comments = payload.comments;
-      },
+  },
+  reducers: {
+    getSingleUserAction: () => {},
+    setSingleUserAction: (state, { payload }) => {
+      state.user.first_name = payload.first_name;
+      state.user.last_name = payload.last_name;
+      state.user.email = payload.email;
+      state.user.created_at = payload.created_at;
+      state.user.galleries = payload.galleries;
+      state.user.comments = payload.comments;
     },
   },
 });

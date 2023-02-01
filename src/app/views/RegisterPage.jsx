@@ -31,7 +31,7 @@ export const RegisterPage = () => {
       });
     }
   };
-  console.log(user, checkUserPw)
+
   const handleRegisterNewUser = async (e) => {
     e.preventDefault();
     if (

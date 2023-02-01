@@ -21,27 +21,35 @@ export const SingleGalleryPage = () => {
     <div>
       <br />
       <h1 className="d-flex justify-content-center">{singleGallery.title}</h1>
-      <p className="d-flex justify-content-center">
+      <br />
+      <h5 className="d-flex justify-content-center">
         <Link to={`/authors/${singleGallery.user.id}`}>
           {singleGallery.user.first_name} {singleGallery.user.last_name}
         </Link>
-      </p>
+      </h5>
+      <br />
       {singleGallery.description ? (
         <>
-          <p>Description:</p>
+          <div className="d-flex justify-content-center">
+            <h3>Description:</h3>
+          </div>
           <div className="d-flex justify-content-center">
             <p>{singleGallery.description}</p>
           </div>
         </>
       ) : (
-        <div className="d-flex justify-content-center">. . .</div>
+        <div className="d-flex justify-content-center">
+          . . .
+          <br />
+          <br />
+        </div>
       )}
-
+      <br />
       <Carousel>
         {singleGallery &&
           singleGallery.image_url.map((url, i) => (
             <div key={i} onClick={() => window.open(url)}>
-              <img src={url} />
+              <img src={url} alt="" />
             </div>
           ))}
       </Carousel>

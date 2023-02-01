@@ -31,10 +31,7 @@ export const AllGalleriesPage = () => {
       {galleries && (
         <>
           {galleries?.data?.map((gallery) => (
-            <div
-              className="d-flex justify-content-center"
-              key={gallery.id}
-            >
+            <div className="d-flex justify-content-center" key={gallery.id}>
               <GalleryDetails
                 galleryId={gallery.id}
                 title={gallery.title}

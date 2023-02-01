@@ -7,13 +7,15 @@ import { AllGalleriesPage } from "../views/AllGalleriesPage";
 import { MyGalleriesPage } from "../views/MyGalleriesPage";
 import { CreateNewGalleryPage } from "../views/CreateNewGalleryPage";
 import { SingleGalleryPage } from "../views/SingleGalleryPage";
+import { AuthorProfilePage } from "../views/AuthorProfilePage";
 
 const Router = () => {
   return (
     <Switch>
       <Route component={AllGalleriesPage} exact path="/" />
       <GuardedRoute component={MyGalleriesPage} path="/my-galleries" />
-      <GuardedRoute component={SingleGalleryPage} path="/galleries/:id" />
+      <Route component={SingleGalleryPage} path="/galleries/:id" />
+      <Route component={AuthorProfilePage} path="/authors/:id"/>
       <GuardedRoute component={CreateNewGalleryPage} path="/create" />
       <GuestRoute component={LoginPage} path="/login" />
       <GuestRoute component={RegisterPage} path="/register" />
