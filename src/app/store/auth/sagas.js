@@ -40,10 +40,23 @@ function* getAuthUserSagaWatcher() {
   yield takeEvery("auth/getAuthUserAction", getAuthUser);
 }
 
+function* logOutUser() {
+  try {
+    yield call([authService, "logout"]);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* logOutUserSagaWatcher() {
+  yield takeEvery("auth/logOutUserAction", logOutUser);
+}
+
 export default function* rootAuthSaga() {
   yield all([
     fork(logInUserSagaWatcher),
     fork(getAuthUserSagaWatcher),
     fork(registerNewUserSagaWatcher),
+    fork(logOutUserSagaWatcher),
   ]);
 }

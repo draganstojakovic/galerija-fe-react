@@ -12,6 +12,7 @@ const auth = createSlice({
       state.authUser = payload;
     },
     registerNewUserAction: () => {},
+    logOutUserAction: () => {},
   },
 });
 
@@ -20,5 +21,6 @@ export const {
   setAuthUserAction,
   getAuthUserAction,
   registerNewUserAction,
+  logOutUserAction,
 } = auth.actions;
 export default auth.reducer;

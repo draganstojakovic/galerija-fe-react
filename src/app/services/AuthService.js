@@ -11,7 +11,7 @@ class AuthService extends ApiService {
   async logout() {
     await this.client.post("/auth/logout", {}, { headers: this.getHeaders() });
     window.localStorage.removeItem("loginToken");
-    window.location.replace("/login");
+    window.location.replace("/");
   }
 
   async register(data) {

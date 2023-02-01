@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LogOutButton } from "./LogOutButton";
 
 export const Header = () => {
   return (
@@ -18,6 +19,7 @@ export const Header = () => {
               {" "}
               Create New Gallery
             </Link>
+            <LogOutButton />
           </>
         ) : (
           <>
