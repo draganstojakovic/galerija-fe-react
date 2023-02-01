@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFirstPageGalleriesAction } from "../store/galleries/slice";
 import { makeSelectGalleries } from "../store/galleries/selector";
@@ -9,21 +9,24 @@ export const AllGalleriesPage = () => {
   const dispatch = useDispatch();
   const galleries = useSelector(makeSelectGalleries);
 
+  const [currentPage, setCurrentPage] = useState(2);
+
   useEffect(() => {
     dispatch(getFirstPageGalleriesAction());
   }, [dispatch]);
 
   const handleLoadMoreGalleries = () => {
+    if (Number(galleries?.last_page) === Number(currentPage)) {
+      return;
+    }
+    setCurrentPage(currentPage + 1);
     try {
-      if (galleries?.last_page === 100000) {
-        return;
-      }
-      dispatch(getNextPageGalleriesAction(Number(galleries?.current_page + 1)));
+      dispatch(getNextPageGalleriesAction(Number(currentPage)));
     } catch (err) {
       console.error(err);
     }
   };
-  
+
   return (
     <>
       <div className="card mx-5">
@@ -47,15 +50,17 @@ export const AllGalleriesPage = () => {
       </div>
       <br />
       <br />
-      <div className="d-flex justify-content-center">
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={() => handleLoadMoreGalleries()}
-        >
-          Load More
-        </button>
-      </div>
+      {Number(galleries?.last_page) >= Number(currentPage) && (
+        <div className="d-flex justify-content-center">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => handleLoadMoreGalleries()}
+          >
+            Load More
+          </button>
+        </div>
+      )}
       <br />
       <br />
     </>

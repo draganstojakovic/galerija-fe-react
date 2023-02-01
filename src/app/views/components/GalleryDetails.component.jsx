@@ -14,7 +14,6 @@ export const GalleryDetails = ({
     <>
       <span>
         <br />
-        <br />
         <h1>
           <Link to={`/galleries/${galleryId}`}>{title}</Link>
         </h1>

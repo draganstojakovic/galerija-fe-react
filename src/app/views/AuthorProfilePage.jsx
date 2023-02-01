@@ -27,9 +27,11 @@ export const AuthorProfilePage = () => {
       </div>
       <br />
       <br />
-      <div>
+      <div className="card mx-5">
         {galleries && (
           <>
+          <br />
+          <br />
             <div className="d-flex justify-content-center">
               <h3>{user.first_name}'s Galleries:</h3>
             </div>
