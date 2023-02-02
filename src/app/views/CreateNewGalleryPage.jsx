@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { submitNewgalleryAction } from "../store/gallery/slice";
-import { makeSelectAuthUser } from "../store/auth/selector";
-import { getAuthUserAction } from "../store/auth/slice";
 import { GalleryForm } from "./components/GalleryForm.component";
 
 export const CreateNewGalleryPage = () => {
   const dispatch = useDispatch();
-  const authUser = useSelector(makeSelectAuthUser);
   const [gallery, setGallery] = useState({
     title: "",
     description: "",
@@ -25,20 +22,13 @@ export const CreateNewGalleryPage = () => {
       return;
     }
     try {
-      dispatch(getAuthUserAction());
+      dispatch(submitNewgalleryAction(gallery));
+      window.location.replace("/");
+      // na liniji iznad izazivam osvezavanje stranice jer ne mili mi se dodavati ovu
+      //  galeriju u paginisani niz galerija jer bi to napravilo problem zbog nacina na
+      // koji brojanje stranice funkcionise
     } catch (err) {
       console.error(err);
-    }
-    if (authUser) {
-      try {
-        dispatch(submitNewgalleryAction({ id: authUser?.id, data: gallery }));
-        window.location.replace("/"); 
-        // na liniji iznad izazivam osvezavanje stranice jer ne mili mi se dodavati ovu
-        //  galeriju u paginisani niz galerija jer bi to napravilo problem zbog nacina na
-        // koji brojanje stranice funkcionise
-      } catch (err) {
-        console.error(err);
-      }
     }
   };
 

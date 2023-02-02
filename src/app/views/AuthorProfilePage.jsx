@@ -8,6 +8,7 @@ import { getOnlyUserAction } from "../store/user/slice";
 import { makeSelectOnlyUser } from "../store/user/selector";
 import { getNextPageUserGalleriesAction } from "../store/galleries/slice";
 import { Filter } from "./components/Filter.component";
+import { getFilteredGalleriesAction } from "../store/galleries/slice";
 
 export const AuthorProfilePage = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export const AuthorProfilePage = () => {
   const [searchTerm, setSearchTerm] = useState({
     searchTerm: "",
   });
+  const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -37,9 +39,29 @@ export const AuthorProfilePage = () => {
     }
   };
 
+  const handleFetchSearchedTerm = (e) => {
+    e.preventDefault();
+    if (!searchTerm.searchTerm) return;
+    try {
+      setCurrentPage(2);
+      dispatch(getFilteredGalleriesAction(searchTerm?.searchTerm));
+      setStoreTerm(searchTerm.searchTerm);
+      setSearchTerm({ searchTerm: "" });
+      setSearchMode(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
-      {!!window.localStorage.getItem("loginToken") && <Filter />}
+      {!!window.localStorage.getItem("loginToken") && (
+        <Filter
+          search={searchTerm}
+          onChange={setSearchTerm}
+          handleSubmit={handleFetchSearchedTerm}
+        />
+      )}
       <div className="d-flex justify-content-center">
         <h1>
           {user.first_name} {user.last_name}

@@ -47,8 +47,8 @@ class GalleryService extends ApiService {
     return await this.client.get(`/galleries/${id}`);
   }
 
-  async add(id, gallery) {
-    return await this.client.post(`/galleries/${id}`, gallery, {
+  async add(gallery) {
+    return await this.client.post(`/galleries`, gallery, {
       headers: this.authService.getHeaders(),
     });
   }

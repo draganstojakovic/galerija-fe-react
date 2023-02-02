@@ -7,6 +7,7 @@ import { makeSelectAuthUserGalleries } from "../store/galleries/selector";
 import { GalleryDetails } from "./components/GalleryDetails.component";
 import { getNextPageAuthUserGalleriesAction } from "../store/galleries/slice";
 import { Filter } from "./components/Filter.component";
+import { getFilteredGalleriesAction } from "../store/galleries/slice";
 
 export const MyGalleriesPage = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export const MyGalleriesPage = () => {
   const [searchTerm, setSearchTerm] = useState({
     searchTerm: "",
   });
+  const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -43,9 +45,29 @@ export const MyGalleriesPage = () => {
     }
   };
 
+  const handleFetchSearchedTerm = (e) => {
+    e.preventDefault();
+    if (!searchTerm.searchTerm) return;
+    try {
+      setCurrentPage(2);
+      dispatch(getFilteredGalleriesAction(searchTerm?.searchTerm));
+      setStoreTerm(searchTerm.searchTerm);
+      setSearchTerm({ searchTerm: "" });
+      setSearchMode(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <>
-      {!!window.localStorage.getItem("loginToken") && <Filter />}
+      {!!window.localStorage.getItem("loginToken") && (
+        <Filter
+          search={searchTerm}
+          onChange={setSearchTerm}
+          handleSubmit={handleFetchSearchedTerm}
+        />
+      )}
       {galleries ? (
         <div className="card mx-5">
           {galleries?.data?.map((gallery, i) => (

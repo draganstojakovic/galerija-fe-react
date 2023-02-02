@@ -17,7 +17,7 @@ function* getSingleGallerySagaWatcher() {
 
 function* submitNewGallery({ payload }) {
   try {
-    yield call([galleryService, "add"], payload.id, payload.data);
+    yield call([galleryService, "add"], payload);
   } catch (err) {
     console.error(err);
   }
