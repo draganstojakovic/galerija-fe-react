@@ -6,6 +6,7 @@ import { setAuthUserGalleries } from "./slice";
 import { setUserGalleriesAction } from "./slice";
 import { setNextPageAuthUserGalleriesAction } from "./slice";
 import { setNextPageUserGalleriesAction } from "./slice";
+import { setFilteredGalleriesAction } from "./slice";
 
 function* getGalleries() {
   try {
@@ -105,6 +106,19 @@ function* getNextPageOfUserGalleriesSagaWatcher() {
   );
 }
 
+function* getFilteredGalleries({ payload }) {
+  try {
+    const response = yield call([galleryService, "fetchSearchedTerm"], payload);
+    yield put(setFilteredGalleriesAction(response.data));
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* getFilteredGalleriesSagaWatcher() {
+  yield takeEvery("galleries/getFilteredGalleriesAction", getFilteredGalleries);
+}
+
 export default function* rootGalleriesSaga() {
   yield all([
     fork(getGalleriesSagaWatcher),
@@ -113,5 +127,6 @@ export default function* rootGalleriesSaga() {
     fork(getUserGalleriesSagaWatcher),
     fork(getNextPageOfAuthGalleriesSagaWatcher),
     fork(getNextPageOfUserGalleriesSagaWatcher),
+    fork(getFilteredGalleriesSagaWatcher),
   ]);
 }

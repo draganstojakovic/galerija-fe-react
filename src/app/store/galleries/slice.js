@@ -18,6 +18,11 @@ const galleries = createSlice({
       last_page: "",
       data: [],
     },
+    filteredGalleries: {
+      current_page: "",
+      last_page: "",
+      data: [],
+    }
   },
   reducers: {
     getFirstPageGalleriesAction: () => {},
@@ -59,6 +64,12 @@ const galleries = createSlice({
       state.userGalleries.last_page = payload.last_page;
       state.userGalleries.data = [...state.userGalleries.data, ...payload.data];
     },
+    getFilteredGalleriesAction: () => {},
+    setFilteredGalleriesAction: (state, { payload }) => {
+      state.filteredGalleries.current_page = payload.current_page;
+      state.filteredGalleries.last_page = payload.last_page;
+      state.filteredGalleries.data = payload.data;
+    },
   },
 });
 
@@ -75,5 +86,7 @@ export const {
   setNextPageAuthUserGalleriesAction,
   getNextPageUserGalleriesAction,
   setNextPageUserGalleriesAction,
+  getFilteredGalleriesAction,
+  setFilteredGalleriesAction,
 } = galleries.actions;
 export default galleries.reducer;
