@@ -24,12 +24,12 @@ export const AuthorProfilePage = () => {
   const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(2);
-  
+
   useEffect(() => {
     dispatch(getOnlyUserAction(Number(id)));
     dispatch(getUserGalleriesAction(Number(id)));
   }, [id, dispatch]);
-  
+
   const handleLoadMoreGalleries = () => {
     if (searchMode) {
       if (Number(filteredGalleries?.last_page) === Number(currentPage)) {
@@ -59,7 +59,7 @@ export const AuthorProfilePage = () => {
       }
     }
   };
-  
+
   const handleFetchSearchedTerm = (e) => {
     e.preventDefault();
     if (!searchTerm.searchTerm) return;
@@ -100,11 +100,6 @@ export const AuthorProfilePage = () => {
           <>
             {filteredGalleries ? (
               <>
-                <br />
-                <br />
-                <div className="d-flex justify-content-center">
-                  <h3>{user.first_name}'s Galleries:</h3>
-                </div>
                 {filteredGalleries?.data?.map((gallery, i) => (
                   <div className="d-flex justify-content-center" key={i}>
                     <GalleryDetails
@@ -126,11 +121,6 @@ export const AuthorProfilePage = () => {
           <>
             {galleries ? (
               <>
-                <br />
-                <br />
-                <div className="d-flex justify-content-center">
-                  <h3>{user.first_name}'s Galleries:</h3>
-                </div>
                 {galleries?.data?.map((gallery, i) => (
                   <div className="d-flex justify-content-center" key={i}>
                     <GalleryDetails
