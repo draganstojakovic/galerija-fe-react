@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
 import { LogOutButton } from "./LogOutButton";
+// import { useEffect } from "react";
+// import { useDispatch } from "react-redux";
+// import { getAuthUserAction } from "../store/auth/slice";
 
 export const Header = () => {
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getAuthUserAction());
+  // },[ dispatch])
+
   return (
     <header>
       <nav className="navbar navbar-light bg-light d-flex justify-content-start">

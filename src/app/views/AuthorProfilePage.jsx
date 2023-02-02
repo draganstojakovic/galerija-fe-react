@@ -15,7 +15,7 @@ export const AuthorProfilePage = () => {
   const { id } = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
-
+  
   useEffect(() => {
     dispatch(getOnlyUserAction(Number(id)));
     dispatch(getUserGalleriesAction(Number(id)));
@@ -32,7 +32,7 @@ export const AuthorProfilePage = () => {
       console.error(err);
     }
   };
-  console.log(currentPage)
+
   return (
     <>
       <div className="d-flex justify-content-center">

@@ -1,38 +1,27 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { makeSelectAuthUser } from "../store/auth/selector";
+import { makeSelectAuthUser } from "../store/auth/selector";
 import { getAuthUserAction } from "../store/auth/slice";
 import { getAuthUserGalleries } from "../store/galleries/slice";
 import { makeSelectAuthUserGalleries } from "../store/galleries/selector";
 import { GalleryDetails } from "./components/GalleryDetails.component";
 import { getNextPageAuthUserGalleriesAction } from "../store/galleries/slice";
-import { authService } from "../services/AuthService";
 
 export const MyGalleriesPage = () => {
   const dispatch = useDispatch();
-  // const authUser = useSelector(makeSelectAuthUser);
+  const authUser = useSelector(makeSelectAuthUser);
   const galleries = useSelector(makeSelectAuthUserGalleries);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [authUser, setAuthUser] = useState({});
-
-  const handleGetAuthUser = async () => {
-    try {
-      const response = await authService.me();
-      setAuthUser(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   useEffect(() => {
-    handleGetAuthUser();
-  }, []);
+    dispatch(getAuthUserAction());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAuthUserGalleries(authUser.id));
-  }, [dispatch, authUser]);
-  
+  }, [authUser, dispatch]);
+
   const handleLoadMoreGalleries = () => {
     if (Number(galleries?.last_page) === Number(currentPage)) {
       return;
@@ -41,33 +30,30 @@ export const MyGalleriesPage = () => {
     try {
       dispatch(
         getNextPageAuthUserGalleriesAction({
+          id: authUser.id,
           page: currentPage,
-          id: authUser?.id,
         })
       );
     } catch (err) {
       console.error(err);
     }
   };
-
-  // console.log(authUser);
-  // console.log(galleries);
-
+ 
   return (
     <>
       {authUser && (
         <>
           {galleries && (
             <div className="card mx-5">
-              {galleries.data.map((gallery, i) => (
+              {galleries?.data?.map((gallery, i) => (
                 <div className="d-flex justify-content-center" key={i}>
                   <GalleryDetails
                     galleryId={gallery.id}
                     title={gallery.title}
-                    imageUrl={gallery.imageUrl}
+                    imageUrl={gallery.image_url}
                     createdAt={gallery.created_at}
                     user={authUser}
-                    userId={authUser.id}
+                    userId={authUser?.id}
                   />
                 </div>
               ))}
@@ -78,7 +64,7 @@ export const MyGalleriesPage = () => {
       <br />
       <br />
       <br />
-      {Number(galleries?.last_page) !== Number(currentPage) && (
+      {Number(galleries?.last_page) === Number(currentPage) && (
         <div className="d-flex justify-content-center">
           <button
             type="button"

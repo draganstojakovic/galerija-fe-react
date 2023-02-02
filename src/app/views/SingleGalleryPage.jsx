@@ -34,6 +34,9 @@ export const SingleGalleryPage = () => {
     } catch (err) {
       console.error(err);
     }
+    setComment({
+      content: "",
+    });
   };
 
   useEffect(() => {
@@ -41,7 +44,7 @@ export const SingleGalleryPage = () => {
   }, [id, dispatch]);
 
   useEffect(() => {
-    dispatch(showCommentsByGalleryIdAction(Number(singleGallery?.id)));
+    dispatch(showCommentsByGalleryIdAction(Number(singleGallery.id)));
   }, [dispatch, singleGallery]);
 
   return (
@@ -96,15 +99,13 @@ export const SingleGalleryPage = () => {
       )}
       <br />
       <br />
-      {comments?.map((comment) => (
-        <div key={comment.id}>
-          <div className="card mx-5" key={comment.id}>
-            <CommentDetails
-              content={comment.content}
-              createdAt={comment.created_at}
-              userId={comment.user_id}
-            />
-          </div>
+      {comments?.map((comment, i) => (
+        <div className="card mx-5" key={i}>
+          <CommentDetails
+            content={comment.content}
+            createdAt={comment.created_at}
+            userId={comment.user_id}
+          />
           <br />
         </div>
       ))}
