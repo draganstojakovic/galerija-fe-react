@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeSelectSingleGallery } from "../store/gallery/selector";
@@ -14,9 +14,11 @@ import { makeSelectComments } from "../store/comment/selector";
 import { deleteCommentAction } from "../store/comment/slice";
 import { makeSelectAuthUser } from "../store/auth/selector";
 import { getAuthUserAction } from "../store/auth/slice";
+import { deleteGalleryAction } from "../store/gallery/slice";
 
 export const SingleGalleryPage = () => {
   const { id } = useParams();
+  const history = useHistory();
   const singleGallery = useSelector(makeSelectSingleGallery);
   const comments = useSelector(makeSelectComments);
   const authUser = useSelector(makeSelectAuthUser);
@@ -58,6 +60,19 @@ export const SingleGalleryPage = () => {
     }
   };
 
+  const handleDeleteGallery = (id) => {
+    const response = window.confirm("Are you sure?");
+    if (!response) {
+      return;
+    }
+    try {
+      dispatch(deleteGalleryAction(id))
+      history.push("/my-galleries");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     dispatch(getAuthUserAction());
   }, [dispatch]);
@@ -80,6 +95,19 @@ export const SingleGalleryPage = () => {
           {singleGallery.user.first_name} {singleGallery.user.last_name}
         </Link>
       </h5>
+      {authUser.id === singleGallery.user_id && (
+        <>
+          <br />
+          <div className="d-flex justify-content-center">
+            <button
+              className="btn btn-primary"
+              onClick={() => handleDeleteGallery(singleGallery.id)}
+            >
+              Delete Gallery
+            </button>
+          </div>
+        </>
+      )}
       <br />
       <p className="d-flex justify-content-center">{date}</p>
       {singleGallery.description ? (

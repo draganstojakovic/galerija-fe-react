@@ -70,6 +70,12 @@ class GalleryService extends ApiService {
       headers: this.authService.getHeaders(),
     });
   }
+
+  async delete(id) {
+    return await this.client.delete(`/galleries/${id}`, {
+      headers: this.authService.getHeaders(),
+    });
+  }
 }
 
 export const galleryService = new GalleryService();

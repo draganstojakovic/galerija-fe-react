@@ -36,7 +36,7 @@ export const CommentDetails = ({
         </Link>
       </p>
       <p>{content}</p>
-      {authUserId && (
+      {authUserId === userId && (
         <p>
           <button
             className="btn btn-primary"

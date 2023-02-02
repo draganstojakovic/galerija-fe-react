@@ -27,9 +27,22 @@ function* submitNewGallerySagaWatcher() {
   yield takeEvery("gallery/submitNewgalleryAction", submitNewGallery);
 }
 
+function* deleteGallery({ payload }) {
+  try {
+    yield call([galleryService, "delete"], payload);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* deleteGallerySagaWatcher() {
+  yield takeEvery("gallery/deleteGalleryAction", deleteGallery);
+}
+
 export default function* rootGallerySaga() {
   yield all([
     fork(getSingleGallerySagaWatcher),
     fork(submitNewGallerySagaWatcher),
+    fork(deleteGallerySagaWatcher),
   ]);
 }

@@ -27,6 +27,7 @@ const gallery = createSlice({
       state.gallery.user = payload.user;
     },
     submitNewgalleryAction: () => {},
+    deleteGalleryAction: () => {},
   },
 });
 
@@ -34,5 +35,6 @@ export const {
   getSingleGalleryAction,
   setSingleGalleryAction,
   submitNewgalleryAction,
+  deleteGalleryAction,
 } = gallery.actions;
 export default gallery.reducer;
