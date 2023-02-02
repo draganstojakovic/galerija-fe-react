@@ -50,7 +50,7 @@ export const UserForm = ({
           <input
             className="form-control"
             id="email"
-            type="text"
+            type="email"
             value={user.email}
             required
             onChange={(e) => onChange({ ...user, email: e.target.value })}
@@ -64,6 +64,8 @@ export const UserForm = ({
             type="password"
             value={user.password}
             required
+            pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+            title="Must contain at least one digit and at least 8 or more characters"
             onChange={(e) => onChange({ ...user, password: e.target.value })}
           />
         </div>
@@ -91,8 +93,9 @@ export const UserForm = ({
                 className="form-check-input"
                 id="terms"
                 type="checkbox"
-                name="genres"
+                name="terms"
                 value={1}
+                required
                 onChange={(e) => handleCheckbox(e.target.checked)}
               />
             </div>
