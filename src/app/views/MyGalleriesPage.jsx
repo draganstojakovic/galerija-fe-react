@@ -12,7 +12,7 @@ export const MyGalleriesPage = () => {
   const authUser = useSelector(makeSelectAuthUser);
   const galleries = useSelector(makeSelectAuthUserGalleries);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     dispatch(getAuthUserAction());
@@ -64,7 +64,7 @@ export const MyGalleriesPage = () => {
       <br />
       <br />
       <br />
-      {Number(galleries?.last_page) === Number(currentPage) && (
+      {Number(galleries?.last_page) !== Number(currentPage) ? (
         <div className="d-flex justify-content-center">
           <button
             type="button"
@@ -74,30 +74,11 @@ export const MyGalleriesPage = () => {
             Load More
           </button>
         </div>
+      ) : (
+        <p className="d-flex justify-content-center">On Last Page</p>
       )}
       <br />
       <br />
     </>
   );
 };
-
-// {authUser && (
-//   <div className="card mx-5">
-//     {galleries && (
-//       <>
-//         {galleries.data.map((gallery, i) => (
-//           <div className="d-flex justify-content-center" key={i}>
-//             <GalleryDetails
-//               galleryId={gallery.id}
-//               title={gallery.title}
-//               imageUrl={gallery.image_url}
-//               createdAt={gallery.created_at}
-//               user={authUser}
-//               userId={authUser.id}
-//             />
-//           </div>
-//         ))}
-//       </>
-//     )}
-//   </div>
-// )}

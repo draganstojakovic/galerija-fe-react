@@ -50,7 +50,7 @@ export const AllGalleriesPage = () => {
       </div>
       <br />
       <br />
-      {Number(galleries?.last_page) !== Number(currentPage) && (
+      {Number(galleries?.last_page) !== Number(currentPage) ? (
         <div className="d-flex justify-content-center">
           <button
             type="button"
@@ -60,6 +60,8 @@ export const AllGalleriesPage = () => {
             Load More
           </button>
         </div>
+      ) : (
+        <p className="d-flex justify-content-center">On Last Page</p>
       )}
       <br />
       <br />
