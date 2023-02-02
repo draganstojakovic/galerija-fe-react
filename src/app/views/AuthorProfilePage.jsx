@@ -23,13 +23,13 @@ export const AuthorProfilePage = () => {
   });
   const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(2);
   
   useEffect(() => {
     dispatch(getOnlyUserAction(Number(id)));
     dispatch(getUserGalleriesAction(Number(id)));
   }, [id, dispatch]);
-  console.log(searchTerm)
+  
   const handleLoadMoreGalleries = () => {
     if (searchMode) {
       if (Number(filteredGalleries?.last_page) === Number(currentPage)) {
