@@ -16,6 +16,12 @@ class CommentService extends ApiService {
       headers: this.authService.getHeaders(),
     });
   }
+
+  async delete(id) {
+    return await this.client.delete(`/comments/${id}`, {
+      headers: this.authService.getHeaders(),
+    });
+  }
 }
 
 export const commentService = new CommentService();

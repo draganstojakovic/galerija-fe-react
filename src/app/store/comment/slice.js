@@ -14,6 +14,12 @@ const comment = createSlice({
     setNewCommentAction: (state, { payload }) => {
       state.comments = [...state.comments, payload];
     },
+    deleteCommentAction: () => {},
+    removeCommentFromStateAction: (state, { payload }) => {
+      state.comments = [
+        ...state.comments.filter((comment) => comment.id !== payload.id),
+      ];
+    },
   },
 });
 
@@ -22,5 +28,7 @@ export const {
   setNewCommentAction,
   showCommentsByGalleryIdAction,
   setCommentsAction,
+  deleteCommentAction,
+  removeCommentFromStateAction,
 } = comment.actions;
 export default comment.reducer;

@@ -3,7 +3,14 @@ import { useState, useEffect } from "react";
 import { userService } from "../../services/UserService";
 import { Link } from "react-router-dom";
 
-export const CommentDetails = ({ content, createdAt, userId }) => {
+export const CommentDetails = ({
+  commentId,
+  content,
+  createdAt,
+  userId,
+  authUserId,
+  handleDeleteComment,
+}) => {
   const date = useFormattedDate(createdAt);
   const [commentAuthor, setCommentAuthor] = useState({});
 
@@ -29,6 +36,16 @@ export const CommentDetails = ({ content, createdAt, userId }) => {
         </Link>
       </p>
       <p>{content}</p>
+      {authUserId && (
+        <p>
+          <button
+            className="btn btn-primary"
+            onClick={() => handleDeleteComment(commentId)}
+          >
+            Delete Comment
+          </button>
+        </p>
+      )}
     </>
   );
 };

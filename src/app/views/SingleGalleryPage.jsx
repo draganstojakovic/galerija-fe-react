@@ -11,11 +11,15 @@ import { CommentForm } from "./components/CommentForm.component";
 import { submitNewCommentAction } from "../store/comment/slice";
 import { showCommentsByGalleryIdAction } from "../store/comment/slice";
 import { makeSelectComments } from "../store/comment/selector";
+import { deleteCommentAction } from "../store/comment/slice";
+import { makeSelectAuthUser } from "../store/auth/selector";
+import { getAuthUserAction } from "../store/auth/slice";
 
 export const SingleGalleryPage = () => {
   const { id } = useParams();
   const singleGallery = useSelector(makeSelectSingleGallery);
   const comments = useSelector(makeSelectComments);
+  const authUser = useSelector(makeSelectAuthUser);
   const dispatch = useDispatch();
   const date = useFormattedDate(singleGallery.created_at);
 
@@ -38,6 +42,25 @@ export const SingleGalleryPage = () => {
       content: "",
     });
   };
+
+  const handleDeleteComment = (commentId) => {
+    const response = window.confirm("Are you sure?");
+    if (!response) {
+      return;
+    }
+    if (authUser) {
+      try {
+        dispatch(deleteCommentAction(commentId));
+        window.location.replace(`/galleries/${id}`);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getAuthUserAction());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getSingleGalleryAction(id));
@@ -100,8 +123,11 @@ export const SingleGalleryPage = () => {
       <br />
       <br />
       {comments?.map((comment, i) => (
-        <div className="card mx-5" key={i}>
+        <div className="border border-primary" key={i}>
           <CommentDetails
+            commentId={comment.id}
+            authUserId={authUser.id}
+            handleDeleteComment={handleDeleteComment}
             content={comment.content}
             createdAt={comment.created_at}
             userId={comment.user_id}
