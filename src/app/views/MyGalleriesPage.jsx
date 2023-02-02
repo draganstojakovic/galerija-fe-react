@@ -84,7 +84,7 @@ export const MyGalleriesPage = () => {
       console.error(err);
     }
   };
-
+  
   return (
     <>
       {!!window.localStorage.getItem("loginToken") && (
@@ -93,6 +93,12 @@ export const MyGalleriesPage = () => {
           onChange={setSearchTerm}
           handleSubmit={handleFetchSearchedTerm}
         />
+      )}
+      {!!galleries.data && (
+        <>
+          <div className="d-flex justify-content-center">No Galleries</div>
+          <br />
+        </>
       )}
       {searchMode ? (
         <>

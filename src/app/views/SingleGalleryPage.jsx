@@ -19,6 +19,7 @@ import { deleteGalleryAction } from "../store/gallery/slice";
 export const SingleGalleryPage = () => {
   const { id } = useParams();
   const history = useHistory();
+  const token = window.localStorage.getItem("loginToken");
   const singleGallery = useSelector(makeSelectSingleGallery);
   const comments = useSelector(makeSelectComments);
   const authUser = useSelector(makeSelectAuthUser);
@@ -66,7 +67,7 @@ export const SingleGalleryPage = () => {
       return;
     }
     try {
-      dispatch(deleteGalleryAction(id))
+      dispatch(deleteGalleryAction(id));
       history.push("/my-galleries");
     } catch (err) {
       console.error(err);
@@ -74,7 +75,9 @@ export const SingleGalleryPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getAuthUserAction());
+    if (token) {
+      dispatch(getAuthUserAction());
+    }
   }, [dispatch]);
 
   useEffect(() => {
