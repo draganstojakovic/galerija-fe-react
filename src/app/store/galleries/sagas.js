@@ -8,6 +8,8 @@ import { setNextPageAuthUserGalleriesAction } from "./slice";
 import { setNextPageUserGalleriesAction } from "./slice";
 import { setFilteredGalleriesAction } from "./slice";
 import { setNextPageOfFilteredGalleriesAction } from "./slice";
+import { setFilteredUserGalleriesAction } from "./slice";
+import { setNextPageOfFilteredUserGalleriesAction } from "./slice";
 
 function* getGalleries() {
   try {
@@ -140,6 +142,47 @@ function* getNextPageOfFilteredGalleriesSagaWatcher() {
   );
 }
 
+function* getFilteredUserGalleries({ payload }) {
+  try {
+    const response = yield call(
+      [galleryService, "fetchSearchedTermUser"],
+      payload.term,
+      payload.userId
+    );
+    yield put(setFilteredUserGalleriesAction(response.data));
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* getFilteredUserGalleriesSagaWatcher() {
+  yield takeEvery(
+    "galleries/getFilteredUserGalleriesAction",
+    getFilteredUserGalleries
+  );
+}
+
+function* getNextPageOfFilteredUserGalleries({ payload }) {
+  try {
+    const response = yield call(
+      [galleryService, "loadOneMorePageOfTermUser"],
+      payload.term,
+      payload.userId,
+      payload.page
+    );
+    yield put(setNextPageOfFilteredUserGalleriesAction(response.data));
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* getNextPageOfFilteredUserGalleriesSagaWatcher() {
+  yield takeEvery(
+    "galleries/getNextPageOfFilteredUserGalleriesAction",
+    getNextPageOfFilteredUserGalleries
+  );
+}
+
 export default function* rootGalleriesSaga() {
   yield all([
     fork(getGalleriesSagaWatcher),
@@ -150,5 +193,7 @@ export default function* rootGalleriesSaga() {
     fork(getNextPageOfUserGalleriesSagaWatcher),
     fork(getFilteredGalleriesSagaWatcher),
     fork(getNextPageOfFilteredGalleriesSagaWatcher),
+    fork(getFilteredUserGalleriesSagaWatcher),
+    fork(getNextPageOfFilteredUserGalleriesSagaWatcher),
   ]);
 }

@@ -22,6 +22,11 @@ const galleries = createSlice({
       current_page: "",
       last_page: "",
       data: [],
+    },
+    filteredUserGalleries: {
+      current_page: "",
+      last_page: "",
+      data: [],
     }
   },
   reducers: {
@@ -76,6 +81,18 @@ const galleries = createSlice({
       state.filteredGalleries.last_page = payload.last_page;
       state.filteredGalleries.data = [...state.filteredGalleries.data, ...payload.data];
     },
+    getFilteredUserGalleriesAction: () => {},
+    setFilteredUserGalleriesAction: (state, { payload }) => {
+      state.filteredUserGalleries.current_page = payload.current_page;
+      state.filteredUserGalleries.last_page = payload.last_page;
+      state.filteredUserGalleries.data = payload.data;
+    },
+    getNextPageOfFilteredUserGalleriesAction: () => {},
+    setNextPageOfFilteredUserGalleriesAction: (state, { payload }) => {
+      state.filteredUserGalleries.current_page = payload.current_page;
+      state.filteredUserGalleries.last_page = payload.last_page;
+      state.filteredUserGalleries.data = [...state.filteredUserGalleries.data, ...payload.data];
+    },
   },
 });
 
@@ -96,5 +113,9 @@ export const {
   setFilteredGalleriesAction,
   getNextPageOfFilteredGalleriesAction,
   setNextPageOfFilteredGalleriesAction,
+  getFilteredUserGalleriesAction,
+  setFilteredUserGalleriesAction,
+  getNextPageOfFilteredUserGalleriesAction,
+  setNextPageOfFilteredUserGalleriesAction,
 } = galleries.actions;
 export default galleries.reducer;

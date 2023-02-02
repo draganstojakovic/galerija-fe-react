@@ -43,6 +43,24 @@ class GalleryService extends ApiService {
     });
   }
 
+  async fetchSearchedTermUser(term, userId) {
+    return await this.client.get(
+      `userGalleriesSearch?term=${term}&user_id=${userId}`,
+      {
+        headers: this.authService.getHeaders(),
+      }
+    );
+  }
+
+  async loadOneMorePageOfTermUser(term, userId, page) {
+    return await this.client.get(
+      `userGalleriesSearch?term=${term}&user_id=${userId}&page=${page}`,
+      {
+        headers: this.authService.getHeaders(),
+      }
+    );
+  }
+
   async show(id) {
     return await this.client.get(`/galleries/${id}`);
   }

@@ -8,12 +8,15 @@ import { getOnlyUserAction } from "../store/user/slice";
 import { makeSelectOnlyUser } from "../store/user/selector";
 import { getNextPageUserGalleriesAction } from "../store/galleries/slice";
 import { Filter } from "./components/Filter.component";
-import { getFilteredGalleriesAction } from "../store/galleries/slice";
+import { getFilteredUserGalleriesAction } from "../store/galleries/slice";
+import { makeSelectFilteredUserGalleries } from "../store/galleries/selector";
+import { getNextPageOfFilteredUserGalleriesAction } from "../store/galleries/slice";
 
 export const AuthorProfilePage = () => {
   const dispatch = useDispatch();
   const user = useSelector(makeSelectOnlyUser);
   const galleries = useSelector(makeSelectUserGalleries);
+  const filteredGalleries = useSelector(makeSelectFilteredUserGalleries);
   const { id } = useParams();
   const [searchTerm, setSearchTerm] = useState({
     searchTerm: "",
@@ -21,30 +24,53 @@ export const AuthorProfilePage = () => {
   const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
+  
   useEffect(() => {
     dispatch(getOnlyUserAction(Number(id)));
     dispatch(getUserGalleriesAction(Number(id)));
   }, [id, dispatch]);
-
+  console.log(searchTerm)
   const handleLoadMoreGalleries = () => {
-    if (Number(galleries?.last_page) === Number(currentPage)) {
-      return;
-    }
-    setCurrentPage(currentPage + 1);
-    try {
-      dispatch(getNextPageUserGalleriesAction({ id: id, page: currentPage }));
-    } catch (err) {
-      console.error(err);
+    if (searchMode) {
+      if (Number(filteredGalleries?.last_page) === Number(currentPage)) {
+        return;
+      }
+      try {
+        setCurrentPage(currentPage + 1);
+        dispatch(
+          getNextPageOfFilteredUserGalleriesAction({
+            term: storeTerm,
+            userId: id,
+            page: currentPage,
+          })
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      if (Number(galleries?.last_page) === Number(currentPage)) {
+        return;
+      }
+      setCurrentPage(currentPage + 1);
+      try {
+        dispatch(getNextPageUserGalleriesAction({ id: id, page: currentPage }));
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
-
+  
   const handleFetchSearchedTerm = (e) => {
     e.preventDefault();
     if (!searchTerm.searchTerm) return;
     try {
       setCurrentPage(2);
-      dispatch(getFilteredGalleriesAction(searchTerm?.searchTerm));
+      dispatch(
+        getFilteredUserGalleriesAction({
+          term: searchTerm.searchTerm,
+          userId: id,
+        })
+      );
       setStoreTerm(searchTerm.searchTerm);
       setSearchTerm({ searchTerm: "" });
       setSearchMode(true);
@@ -70,44 +96,94 @@ export const AuthorProfilePage = () => {
       <br />
       <br />
       <div className="card mx-5">
-        {galleries ? (
+        {searchMode ? (
           <>
-            <br />
-            <br />
-            <div className="d-flex justify-content-center">
-              <h3>{user.first_name}'s Galleries:</h3>
-            </div>
-            {galleries?.data?.map((gallery, i) => (
-              <div className="d-flex justify-content-center" key={i}>
-                <GalleryDetails
-                  galleryId={gallery.id}
-                  title={gallery.title}
-                  imageUrl={gallery.image_url}
-                  createdAt={gallery.created_at}
-                  user={user}
-                  userId={id}
-                />
-              </div>
-            ))}
+            {filteredGalleries ? (
+              <>
+                <br />
+                <br />
+                <div className="d-flex justify-content-center">
+                  <h3>{user.first_name}'s Galleries:</h3>
+                </div>
+                {filteredGalleries?.data?.map((gallery, i) => (
+                  <div className="d-flex justify-content-center" key={i}>
+                    <GalleryDetails
+                      galleryId={gallery.id}
+                      title={gallery.title}
+                      imageUrl={gallery.image_url}
+                      createdAt={gallery.created_at}
+                      user={user}
+                      userId={id}
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <h3 className="d-flex justify-content-center">No Galleries</h3>
+            )}
           </>
         ) : (
-          <h3 className="d-flex justify-content-center">No Galleries</h3>
+          <>
+            {galleries ? (
+              <>
+                <br />
+                <br />
+                <div className="d-flex justify-content-center">
+                  <h3>{user.first_name}'s Galleries:</h3>
+                </div>
+                {galleries?.data?.map((gallery, i) => (
+                  <div className="d-flex justify-content-center" key={i}>
+                    <GalleryDetails
+                      galleryId={gallery.id}
+                      title={gallery.title}
+                      imageUrl={gallery.image_url}
+                      createdAt={gallery.created_at}
+                      user={user}
+                      userId={id}
+                    />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <h3 className="d-flex justify-content-center">No Galleries</h3>
+            )}
+          </>
         )}
       </div>
       <br />
       <br />
-      {Number(galleries?.last_page) !== Number(currentPage) ? (
-        <div className="d-flex justify-content-center">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => handleLoadMoreGalleries()}
-          >
-            Load More
-          </button>
-        </div>
+      {searchMode ? (
+        <>
+          {Number(filteredGalleries?.last_page) !== Number(currentPage) ? (
+            <div className="d-flex justify-content-center">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleLoadMoreGalleries()}
+              >
+                Load More
+              </button>
+            </div>
+          ) : (
+            <p className="d-flex justify-content-center">On Last Page</p>
+          )}
+        </>
       ) : (
-        <p className="d-flex justify-content-center">On Last Page</p>
+        <>
+          {Number(galleries?.last_page) !== Number(currentPage) ? (
+            <div className="d-flex justify-content-center">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleLoadMoreGalleries()}
+              >
+                Load More
+              </button>
+            </div>
+          ) : (
+            <p className="d-flex justify-content-center">On Last Page</p>
+          )}
+        </>
       )}
       <br />
       <br />
