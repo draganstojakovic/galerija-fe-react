@@ -14,7 +14,10 @@ export const AuthorProfilePage = () => {
   const user = useSelector(makeSelectOnlyUser);
   const galleries = useSelector(makeSelectUserGalleries);
   const { id } = useParams();
-
+  const [searchTerm, setSearchTerm] = useState({
+    searchTerm: "",
+  });
+  const [searchMode, setSearchMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

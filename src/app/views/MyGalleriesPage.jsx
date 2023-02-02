@@ -12,7 +12,10 @@ export const MyGalleriesPage = () => {
   const dispatch = useDispatch();
   const authUser = useSelector(makeSelectAuthUser);
   const galleries = useSelector(makeSelectAuthUserGalleries);
-
+  const [searchTerm, setSearchTerm] = useState({
+    searchTerm: "",
+  });
+  const [searchMode, setSearchMode] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {

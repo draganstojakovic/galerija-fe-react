@@ -32,7 +32,13 @@ class GalleryService extends ApiService {
   }
 
   async fetchSearchedTerm(term) {
-    return await this.client.get(`searchGalleries/${term}`, {
+    return await this.client.get(`search/${term}/galleries`, {
+      headers: this.authService.getHeaders(),
+    });
+  }
+
+  async loadOneMorePageOfSearchedTerm(term, page) {
+    return await this.client.get(`search/${term}/galleries?page=${page}`, {
       headers: this.authService.getHeaders(),
     });
   }

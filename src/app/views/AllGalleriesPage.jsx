@@ -7,6 +7,7 @@ import { getNextPageGalleriesAction } from "../store/galleries/slice";
 import { GalleryDetails } from "./components/GalleryDetails.component";
 import { Filter } from "./components/Filter.component";
 import { getFilteredGalleriesAction } from "../store/galleries/slice";
+import { getNextPageOfFilteredGalleriesAction } from "../store/galleries/slice";
 
 export const AllGalleriesPage = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ export const AllGalleriesPage = () => {
   const [searchTerm, setSearchTerm] = useState({
     searchTerm: "",
   });
+  const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
 
   useEffect(() => {
@@ -23,32 +25,47 @@ export const AllGalleriesPage = () => {
   }, [dispatch]);
 
   const handleLoadMoreGalleries = () => {
-    if (Number(galleries?.last_page) === Number(currentPage)) {
-      return;
-    }
-    setCurrentPage(currentPage + 1);
-    try {
-      dispatch(getNextPageGalleriesAction(Number(currentPage)));
-    } catch (err) {
-      console.error(err);
+    if (searchMode) {
+      if (Number(filteredGalleris?.last_page) === Number(currentPage)) {
+        return;
+      }
+      try {
+        setCurrentPage(currentPage + 1);
+        dispatch(
+          getNextPageOfFilteredGalleriesAction({
+            term: storeTerm,
+            page: currentPage,
+          })
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      if (Number(galleries?.last_page) === Number(currentPage)) {
+        return;
+      }
+      try {
+        setCurrentPage(currentPage + 1);
+        dispatch(getNextPageGalleriesAction(Number(currentPage)));
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
   const handleFetchSearchedTerm = (e) => {
     e.preventDefault();
-    if (!searchTerm.searchTerm) {
-      return;
-    }
+    if (!searchTerm.searchTerm) return;
     try {
+      setCurrentPage(2);
       dispatch(getFilteredGalleriesAction(searchTerm?.searchTerm));
+      setStoreTerm(searchTerm.searchTerm);
       setSearchTerm({ searchTerm: "" });
       setSearchMode(true);
     } catch (err) {
       console.error(err);
     }
   };
-
-  console.log(filteredGalleris);
 
   return (
     <>
@@ -99,18 +116,38 @@ export const AllGalleriesPage = () => {
       )}
       <br />
       <br />
-      {Number(galleries?.last_page) !== Number(currentPage) ? (
-        <div className="d-flex justify-content-center">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => handleLoadMoreGalleries()}
-          >
-            Load More
-          </button>
-        </div>
+      {searchMode ? (
+        <>
+          {Number(filteredGalleris?.last_page) !== Number(currentPage) ? (
+            <div className="d-flex justify-content-center">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleLoadMoreGalleries()}
+              >
+                Load More
+              </button>
+            </div>
+          ) : (
+            <p className="d-flex justify-content-center">On Last Page</p>
+          )}
+        </>
       ) : (
-        <p className="d-flex justify-content-center">On Last Page</p>
+        <>
+          {Number(galleries?.last_page) !== Number(currentPage) ? (
+            <div className="d-flex justify-content-center">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => handleLoadMoreGalleries()}
+              >
+                Load More
+              </button>
+            </div>
+          ) : (
+            <p className="d-flex justify-content-center">On Last Page</p>
+          )}
+        </>
       )}
       <br />
       <br />
