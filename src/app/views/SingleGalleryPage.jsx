@@ -78,7 +78,7 @@ export const SingleGalleryPage = () => {
     if (token) {
       dispatch(getAuthUserAction());
     }
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   useEffect(() => {
     dispatch(getSingleGalleryAction(id));
