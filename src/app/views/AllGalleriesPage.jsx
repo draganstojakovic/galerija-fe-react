@@ -4,6 +4,7 @@ import { getFirstPageGalleriesAction } from "../store/galleries/slice";
 import { makeSelectGalleries } from "../store/galleries/selector";
 import { getNextPageGalleriesAction } from "../store/galleries/slice";
 import { GalleryDetails } from "./components/GalleryDetails.component";
+import { Filter } from "./components/Filter.component";
 
 export const AllGalleriesPage = () => {
   const dispatch = useDispatch();
@@ -29,8 +30,9 @@ export const AllGalleriesPage = () => {
 
   return (
     <>
+    {!!window.localStorage.getItem("loginToken") && <Filter />}
       <div className="card mx-5">
-        {galleries && (
+        {galleries ? (
           <>
             {galleries?.data?.map((gallery, i) => (
               <div className="d-flex justify-content-center" key={i}>
@@ -45,6 +47,8 @@ export const AllGalleriesPage = () => {
               </div>
             ))}
           </>
+        ) : (
+          <h3 className="d-flex justify-content-center">No Galleries</h3>
         )}
         <br />
       </div>

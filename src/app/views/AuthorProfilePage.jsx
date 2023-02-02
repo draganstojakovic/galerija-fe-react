@@ -7,6 +7,7 @@ import { makeSelectUserGalleries } from "../store/galleries/selector";
 import { getOnlyUserAction } from "../store/user/slice";
 import { makeSelectOnlyUser } from "../store/user/selector";
 import { getNextPageUserGalleriesAction } from "../store/galleries/slice";
+import { Filter } from "./components/Filter.component";
 
 export const AuthorProfilePage = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ export const AuthorProfilePage = () => {
 
   return (
     <>
+      {!!window.localStorage.getItem("loginToken") && <Filter />}
       <div className="d-flex justify-content-center">
         <h1>
           {user.first_name} {user.last_name}
@@ -43,7 +45,7 @@ export const AuthorProfilePage = () => {
       <br />
       <br />
       <div className="card mx-5">
-        {galleries && (
+        {galleries ? (
           <>
             <br />
             <br />
@@ -63,6 +65,8 @@ export const AuthorProfilePage = () => {
               </div>
             ))}
           </>
+        ) : (
+          <h3 className="d-flex justify-content-center">No Galleries</h3>
         )}
       </div>
       <br />

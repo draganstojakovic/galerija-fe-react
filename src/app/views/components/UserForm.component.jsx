@@ -56,19 +56,33 @@ export const UserForm = ({
             onChange={(e) => onChange({ ...user, email: e.target.value })}
           />
         </div>
-        <div className="form-group mx-sm-3 mb-2">
-          <label htmlFor="password">Password*</label>
-          <input
-            className="form-control"
-            id="password"
-            type="password"
-            value={user.password}
-            required
-            pattern="(?=.*\d)(?=.*[a-z]).{8,}"
-            title="Must contain at least one digit and at least 8 or more characters"
-            onChange={(e) => onChange({ ...user, password: e.target.value })}
-          />
-        </div>
+        {register ? (
+          <div className="form-group mx-sm-3 mb-2">
+            <label htmlFor="password">Password*</label>
+            <input
+              className="form-control"
+              id="password"
+              type="password"
+              value={user.password}
+              required
+              pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+              title="Must contain at least one digit and at least 8 or more characters"
+              onChange={(e) => onChange({ ...user, password: e.target.value })}
+            />
+          </div>
+        ) : (
+          <div className="form-group mx-sm-3 mb-2">
+            <label htmlFor="password">Password*</label>
+            <input
+              className="form-control"
+              id="password"
+              type="password"
+              value={user.password}
+              required
+              onChange={(e) => onChange({ ...user, password: e.target.value })}
+            />
+          </div>
+        )}
         {register && (
           <>
             <div className="form-group mx-sm-3 mb-2">

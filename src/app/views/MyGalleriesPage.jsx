@@ -6,6 +6,7 @@ import { getAuthUserGalleries } from "../store/galleries/slice";
 import { makeSelectAuthUserGalleries } from "../store/galleries/selector";
 import { GalleryDetails } from "./components/GalleryDetails.component";
 import { getNextPageAuthUserGalleriesAction } from "../store/galleries/slice";
+import { Filter } from "./components/Filter.component";
 
 export const MyGalleriesPage = () => {
   const dispatch = useDispatch();
@@ -38,28 +39,29 @@ export const MyGalleriesPage = () => {
       console.error(err);
     }
   };
- 
+
   return (
     <>
-      {authUser && (
-        <>
-          {galleries && (
-            <div className="card mx-5">
-              {galleries?.data?.map((gallery, i) => (
-                <div className="d-flex justify-content-center" key={i}>
-                  <GalleryDetails
-                    galleryId={gallery.id}
-                    title={gallery.title}
-                    imageUrl={gallery.image_url}
-                    createdAt={gallery.created_at}
-                    user={authUser}
-                    userId={authUser?.id}
-                  />
-                </div>
-              ))}
+      {!!window.localStorage.getItem("loginToken") && <Filter />}
+      {galleries ? (
+        <div className="card mx-5">
+          {galleries?.data?.map((gallery, i) => (
+            <div className="d-flex justify-content-center" key={i}>
+              <GalleryDetails
+                galleryId={gallery.id}
+                title={gallery.title}
+                imageUrl={gallery.image_url}
+                createdAt={gallery.created_at}
+                user={authUser}
+                userId={authUser?.id}
+              />
             </div>
-          )}
-        </>
+          ))}
+        </div>
+      ) : (
+        <h3 className="d-flex justify-content-center">
+          {authUser?.first_name} {authUser?.last_name} has no galleries.
+        </h3>
       )}
       <br />
       <br />
