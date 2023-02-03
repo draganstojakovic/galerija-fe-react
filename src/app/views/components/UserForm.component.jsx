@@ -14,6 +14,8 @@ export const UserForm = ({
       <div className="d-flex justify-content-center">
         <h1>{formText}</h1>
       </div>
+      <br />
+      <br />
       <form onSubmit={handleSubmit} className="form-inline">
         {register && (
           <>
@@ -123,6 +125,8 @@ export const UserForm = ({
         </div>
         <br />
       </form>
+      <br />
+      <br />
     </div>
   );
 };
