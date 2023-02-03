@@ -13,40 +13,42 @@ export const AllGalleriesPage = () => {
   const dispatch = useDispatch();
   const galleries = useSelector(makeSelectGalleries);
   const filteredGalleris = useSelector(makeSelectFilteredGalleries);
-  const [currentPage, setCurrentPage] = useState(2);
   const [searchTerm, setSearchTerm] = useState({
     searchTerm: "",
   });
   const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
-
+  
   useEffect(() => {
     dispatch(getFirstPageGalleriesAction());
   }, [dispatch]);
 
   const handleLoadMoreGalleries = () => {
     if (searchMode) {
-      if (Number(filteredGalleris?.last_page) === Number(currentPage)) {
+      if (
+        Number(filteredGalleris?.last_page) ===
+        Number(filteredGalleris?.current_page)
+      ) {
         return;
       }
       try {
-        setCurrentPage(currentPage + 1);
         dispatch(
           getNextPageOfFilteredGalleriesAction({
             term: storeTerm,
-            page: currentPage,
+            page: Number(filteredGalleris?.current_page + 1),
           })
         );
       } catch (err) {
         console.error(err);
       }
     } else {
-      if (Number(galleries?.last_page) === Number(currentPage)) {
+      if (Number(galleries?.last_page) === Number(galleries?.current_page)) {
         return;
       }
       try {
-        setCurrentPage(currentPage + 1);
-        dispatch(getNextPageGalleriesAction(Number(currentPage)));
+        dispatch(
+          getNextPageGalleriesAction(Number(galleries?.current_page + 1))
+        );
       } catch (err) {
         console.error(err);
       }
@@ -57,7 +59,6 @@ export const AllGalleriesPage = () => {
     e.preventDefault();
     if (!searchTerm.searchTerm) return;
     try {
-      setCurrentPage(2);
       dispatch(getFilteredGalleriesAction(searchTerm?.searchTerm));
       setStoreTerm(searchTerm.searchTerm);
       setSearchTerm({ searchTerm: "" });
@@ -130,7 +131,8 @@ export const AllGalleriesPage = () => {
       <br />
       {searchMode ? (
         <>
-          {Number(filteredGalleris?.last_page) !== Number(currentPage) ? (
+          {Number(filteredGalleris?.last_page) !==
+          Number(filteredGalleris?.current_page) ? (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -146,7 +148,7 @@ export const AllGalleriesPage = () => {
         </>
       ) : (
         <>
-          {Number(galleries?.last_page) !== Number(currentPage) ? (
+          {Number(galleries?.last_page) !== Number(galleries?.current_page) ? (
             <div className="d-flex justify-content-center">
               <button
                 type="button"

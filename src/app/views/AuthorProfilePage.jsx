@@ -23,8 +23,7 @@ export const AuthorProfilePage = () => {
   });
   const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
-  const [currentPage, setCurrentPage] = useState(2);
-
+  
   useEffect(() => {
     dispatch(getOnlyUserAction(Number(id)));
     dispatch(getUserGalleriesAction(Number(id)));
@@ -32,28 +31,34 @@ export const AuthorProfilePage = () => {
 
   const handleLoadMoreGalleries = () => {
     if (searchMode) {
-      if (Number(filteredGalleries?.last_page) === Number(currentPage)) {
+      if (
+        Number(filteredGalleries?.last_page) ===
+        Number(filteredGalleries?.current_page)
+      ) {
         return;
       }
       try {
-        setCurrentPage(currentPage + 1);
         dispatch(
           getNextPageOfFilteredUserGalleriesAction({
             term: storeTerm,
             userId: id,
-            page: currentPage,
+            page: Number(filteredGalleries?.current_page),
           })
         );
       } catch (err) {
         console.error(err);
       }
     } else {
-      if (Number(galleries?.last_page) === Number(currentPage)) {
+      if (Number(galleries?.last_page) === Number(galleries?.current_page)) {
         return;
       }
-      setCurrentPage(currentPage + 1);
       try {
-        dispatch(getNextPageUserGalleriesAction({ id: id, page: currentPage }));
+        dispatch(
+          getNextPageUserGalleriesAction({
+            id: id,
+            page: Number(galleries?.current_page + 1),
+          })
+        );
       } catch (err) {
         console.error(err);
       }
@@ -64,7 +69,6 @@ export const AuthorProfilePage = () => {
     e.preventDefault();
     if (!searchTerm.searchTerm) return;
     try {
-      setCurrentPage(2);
       dispatch(
         getFilteredUserGalleriesAction({
           term: searchTerm.searchTerm,
@@ -156,7 +160,8 @@ export const AuthorProfilePage = () => {
       <br />
       {searchMode ? (
         <>
-          {Number(filteredGalleries?.last_page) !== Number(currentPage) ? (
+          {Number(filteredGalleries?.last_page) !==
+          Number(filteredGalleries?.current_page) ? (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -172,7 +177,7 @@ export const AuthorProfilePage = () => {
         </>
       ) : (
         <>
-          {Number(galleries?.last_page) !== Number(currentPage) ? (
+          {Number(galleries?.last_page) !== Number(galleries?.current_page) ? (
             <div className="d-flex justify-content-center">
               <button
                 type="button"

@@ -21,7 +21,6 @@ export const MyGalleriesPage = () => {
   });
   const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     dispatch(getAuthUserAction());
@@ -33,31 +32,32 @@ export const MyGalleriesPage = () => {
 
   const handleLoadMoreGalleries = () => {
     if (searchMode) {
-      if (Number(filteredGalleries?.last_page) === Number(currentPage)) {
+      if (
+        Number(filteredGalleries?.last_page) ===
+        Number(filteredGalleries?.last_page)
+      ) {
         return;
       }
       try {
-        setCurrentPage(currentPage + 1);
         dispatch(
           getNextPageOfFilteredUserGalleriesAction({
             term: storeTerm,
             userId: authUser?.id,
-            page: currentPage,
+            page: Number(filteredGalleries?.current_page + 1),
           })
         );
       } catch (err) {
         console.error(err);
       }
     } else {
-      if (Number(galleries?.last_page) === Number(currentPage)) {
+      if (Number(galleries?.last_page) === Number(galleries?.current_page)) {
         return;
       }
-      setCurrentPage(currentPage + 1);
       try {
         dispatch(
           getNextPageAuthUserGalleriesAction({
             id: authUser.id,
-            page: currentPage,
+            page: Number(galleries?.current_page + 1),
           })
         );
       } catch (err) {
@@ -70,7 +70,6 @@ export const MyGalleriesPage = () => {
     e.preventDefault();
     if (!searchTerm.searchTerm) return;
     try {
-      setCurrentPage(2);
       dispatch(
         getFilteredUserGalleriesAction({
           term: searchTerm?.searchTerm,
@@ -153,7 +152,8 @@ export const MyGalleriesPage = () => {
       <br />
       {searchMode ? (
         <>
-          {Number(filteredGalleries?.last_page) !== Number(currentPage) ? (
+          {Number(filteredGalleries?.last_page) !==
+          Number(filteredGalleries?.current_page) ? (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -169,7 +169,7 @@ export const MyGalleriesPage = () => {
         </>
       ) : (
         <>
-          {Number(galleries?.last_page) !== Number(currentPage) ? (
+          {Number(galleries?.last_page) !== Number(galleries?.current_page) ? (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
