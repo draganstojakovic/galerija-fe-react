@@ -94,7 +94,7 @@ export const MyGalleriesPage = () => {
           handleSubmit={handleFetchSearchedTerm}
         />
       )}
-      {!!galleries.data && (
+      {!!!galleries.data && (
         <>
           <div className="d-flex justify-content-center">No Galleries</div>
           <br />

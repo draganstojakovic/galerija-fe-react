@@ -12,7 +12,7 @@ const comment = createSlice({
     },
     submitNewCommentAction: () => {},
     setNewCommentAction: (state, { payload }) => {
-      state.comments = [...state.comments, payload];
+      state.comments = [payload, ...state.comments];
     },
     deleteCommentAction: () => {},
     removeCommentFromStateAction: (state, { payload }) => {

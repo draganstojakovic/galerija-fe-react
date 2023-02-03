@@ -12,6 +12,8 @@ export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
             type="text"
             value={gallery.title}
             required
+            minlength="2" 
+            maxlength="255"
             onChange={(e) => onChange({ ...gallery, title: e.target.value })}
           />
         </div>
@@ -24,6 +26,7 @@ export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
             type="text"
             value={gallery.description}
             rows="7"
+            maxlength="1000"
             onChange={(e) =>
               onChange({ ...gallery, description: e.target.value })
             }

@@ -54,7 +54,6 @@ export const SingleGalleryPage = () => {
     if (authUser) {
       try {
         dispatch(deleteCommentAction(commentId));
-        window.location.replace(`/galleries/${id}`);
       } catch (err) {
         console.error(err);
       }
@@ -154,7 +153,7 @@ export const SingleGalleryPage = () => {
       <br />
       <br />
       {comments?.map((comment, i) => (
-        <div className="border border-primary" key={i}>
+        <div className="card" key={i}>
           <CommentDetails
             commentId={comment.id}
             authUserId={authUser.id}

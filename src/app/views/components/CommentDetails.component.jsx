@@ -28,14 +28,14 @@ export const CommentDetails = ({
   }, [userId]);
 
   return (
-    <>
+    <div className="m-3">
       <p>
         {date}:{" "}
         <Link to={`/authors/${commentAuthor?.id}`}>
           {commentAuthor?.first_name} {commentAuthor?.last_name}
         </Link>
       </p>
-      <p>{content}</p>
+      <h5>{content}</h5>
       {authUserId === userId && (
         <p>
           <button
@@ -46,6 +46,6 @@ export const CommentDetails = ({
           </button>
         </p>
       )}
-    </>
+    </div>
   );
 };

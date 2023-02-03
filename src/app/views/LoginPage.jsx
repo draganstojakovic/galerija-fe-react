@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { logInAuthUserAction } from "../store/auth/slice";
 import { UserForm } from "./components/UserForm.component";
-// import { unwrapResult } from "@reduxjs/toolkit";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-  // const [errMsg, setErrMsg] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -19,16 +17,11 @@ export const LoginPage = () => {
       return;
     }
     try {
-      dispatch(logInAuthUserAction(user))
-      // const unwrap = unwrapResult(response);
-      // const resultAction = await dispatch(fetchUserById(userId));
-      // const originalPromiseResult = unwrapResult(resultAction);
+      dispatch(logInAuthUserAction(user));
     } catch (err) {
-      console.log("error = ", err);
+      console.error(err)
     }
   };
-
-  // console.log("jebem", errMsg);
 
   return (
     <UserForm
