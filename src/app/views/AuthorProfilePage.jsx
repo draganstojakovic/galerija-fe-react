@@ -95,9 +95,21 @@ export const AuthorProfilePage = () => {
       </div>
       <br />
       <br />
+      {galleries.data.length === 0 && (
+        <>
+          <div className="d-flex justify-content-center">No Galleries</div>
+          <br />
+        </>
+      )}
       <div className="card mx-5">
         {searchMode ? (
           <>
+            {filteredGalleries.data.length === 0 && (
+              <>
+                <div className="d-flex justify-content-center">No results</div>
+                <br />
+              </>
+            )}
             {filteredGalleries ? (
               <>
                 {filteredGalleries?.data?.map((gallery, i) => (

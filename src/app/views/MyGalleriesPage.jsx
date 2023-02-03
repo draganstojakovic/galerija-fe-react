@@ -84,7 +84,7 @@ export const MyGalleriesPage = () => {
       console.error(err);
     }
   };
-  
+
   return (
     <>
       {!!window.localStorage.getItem("loginToken") && (
@@ -94,7 +94,7 @@ export const MyGalleriesPage = () => {
           handleSubmit={handleFetchSearchedTerm}
         />
       )}
-      {!!!galleries.data && (
+      {galleries.data.length === 0 && (
         <>
           <div className="d-flex justify-content-center">No Galleries</div>
           <br />
@@ -102,6 +102,12 @@ export const MyGalleriesPage = () => {
       )}
       {searchMode ? (
         <>
+          {filteredGalleries.data.length === 0 && (
+            <>
+              <div className="d-flex justify-content-center">No results</div>
+              <br />
+            </>
+          )}
           {filteredGalleries && (
             <div className="card mx-5">
               {filteredGalleries.data.map((gallery, i) => (

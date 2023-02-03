@@ -9,6 +9,7 @@ export const Filter = ({ search, onChange, handleSubmit }) => {
                 className="form-control"
                 placeholder="Filter Galleries"
                 value={search.searchTerm}
+                required
                 onChange={(e) =>
                   onChange({ ...search, searchTerm: e.target.value })
                 }

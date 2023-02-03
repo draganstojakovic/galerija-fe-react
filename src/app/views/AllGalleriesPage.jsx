@@ -76,8 +76,20 @@ export const AllGalleriesPage = () => {
           handleSubmit={handleFetchSearchedTerm}
         />
       )}
+      {galleries.data.length === 0 && (
+        <>
+          <div className="d-flex justify-content-center">No Galleries</div>
+          <br />
+        </>
+      )}
       {searchMode ? (
         <>
+          {filteredGalleris.data.length === 0 && (
+            <>
+              <div className="d-flex justify-content-center">No results</div>
+              <br />
+            </>
+          )}
           {filteredGalleris?.data.map((gallery, i) => (
             <div className="d-flex justify-content-center" key={i}>
               <GalleryDetails
