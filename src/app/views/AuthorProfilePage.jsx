@@ -105,7 +105,7 @@ export const AuthorProfilePage = () => {
           <br />
         </>
       )}
-      <div className="card mx-5">
+      <div>
         {searchMode ? (
           <>
             {filteredGalleries.data.length === 0 && (
@@ -161,7 +161,7 @@ export const AuthorProfilePage = () => {
       {searchMode ? (
         <>
           {Number(filteredGalleries?.last_page) !==
-          Number(filteredGalleries?.current_page) ? (
+          Number(filteredGalleries?.current_page) && (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -171,13 +171,11 @@ export const AuthorProfilePage = () => {
                 Load More
               </button>
             </div>
-          ) : (
-            <p className="d-flex justify-content-center">On Last Page</p>
-          )}
+          )} 
         </>
       ) : (
         <>
-          {Number(galleries?.last_page) !== Number(galleries?.current_page) ? (
+          {Number(galleries?.last_page) !== Number(galleries?.current_page) && (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -187,9 +185,7 @@ export const AuthorProfilePage = () => {
                 Load More
               </button>
             </div>
-          ) : (
-            <p className="d-flex justify-content-center">On Last Page</p>
-          )}
+          )} 
         </>
       )}
       <br />

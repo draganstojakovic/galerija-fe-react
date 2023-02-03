@@ -127,7 +127,7 @@ export const MyGalleriesPage = () => {
       ) : (
         <>
           {galleries ? (
-            <div className="card mx-5">
+            <div>
               {galleries?.data?.map((gallery, i) => (
                 <div className="d-flex justify-content-center" key={i}>
                   <GalleryDetails
@@ -153,7 +153,7 @@ export const MyGalleriesPage = () => {
       {searchMode ? (
         <>
           {Number(filteredGalleries?.last_page) !==
-          Number(filteredGalleries?.current_page) ? (
+            Number(filteredGalleries?.current_page) && (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -163,13 +163,11 @@ export const MyGalleriesPage = () => {
                 Load More
               </button>
             </div>
-          ) : (
-            <p className="d-flex justify-content-center">On Last Page</p>
           )}
         </>
       ) : (
         <>
-          {Number(galleries?.last_page) !== Number(galleries?.current_page) ? (
+          {Number(galleries?.last_page) !== Number(galleries?.current_page) && (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -179,8 +177,6 @@ export const MyGalleriesPage = () => {
                 Load More
               </button>
             </div>
-          ) : (
-            <p className="d-flex justify-content-center">On Last Page</p>
           )}
         </>
       )}

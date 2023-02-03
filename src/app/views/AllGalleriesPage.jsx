@@ -18,7 +18,7 @@ export const AllGalleriesPage = () => {
   });
   const [storeTerm, setStoreTerm] = useState("");
   const [searchMode, setSearchMode] = useState(false);
-  
+
   useEffect(() => {
     dispatch(getFirstPageGalleriesAction());
   }, [dispatch]);
@@ -54,7 +54,7 @@ export const AllGalleriesPage = () => {
       }
     }
   };
-
+  console.log(filteredGalleris)
   const handleFetchSearchedTerm = (e) => {
     e.preventDefault();
     if (!searchTerm.searchTerm) return;
@@ -76,12 +76,6 @@ export const AllGalleriesPage = () => {
           onChange={setSearchTerm}
           handleSubmit={handleFetchSearchedTerm}
         />
-      )}
-      {galleries.data.length === 0 && (
-        <>
-          <div className="d-flex justify-content-center">No Galleries</div>
-          <br />
-        </>
       )}
       {searchMode ? (
         <>
@@ -105,8 +99,8 @@ export const AllGalleriesPage = () => {
           ))}
         </>
       ) : (
-        <div className="card mx-5">
-          {galleries ? (
+        <div>
+          {galleries.data.length > 0 ? (
             <>
               {galleries?.data?.map((gallery, i) => (
                 <div className="d-flex justify-content-center" key={i}>
@@ -122,7 +116,10 @@ export const AllGalleriesPage = () => {
               ))}
             </>
           ) : (
-            <h3 className="d-flex justify-content-center">No Galleries</h3>
+            <>
+              <br />
+              <h3 className="d-flex justify-content-center">No Galleries</h3>
+            </>
           )}
           <br />
         </div>
@@ -132,7 +129,7 @@ export const AllGalleriesPage = () => {
       {searchMode ? (
         <>
           {Number(filteredGalleris?.last_page) !==
-          Number(filteredGalleris?.current_page) ? (
+            Number(filteredGalleris?.current_page) && (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -142,13 +139,11 @@ export const AllGalleriesPage = () => {
                 Load More
               </button>
             </div>
-          ) : (
-            <p className="d-flex justify-content-center">On Last Page</p>
           )}
         </>
       ) : (
         <>
-          {Number(galleries?.last_page) !== Number(galleries?.current_page) ? (
+          {Number(galleries?.last_page) !== Number(galleries?.current_page) && (
             <div className="d-flex justify-content-center">
               <button
                 type="button"
@@ -158,8 +153,6 @@ export const AllGalleriesPage = () => {
                 Load More
               </button>
             </div>
-          ) : (
-            <p className="d-flex justify-content-center">On Last Page</p>
           )}
         </>
       )}

@@ -11,7 +11,7 @@ export const GalleryDetails = ({
 }) => {
   const date = useFormattedDate(createdAt);
   return (
-    <span>
+    <div>
       <br />
       <h1>
         <Link to={`/galleries/${galleryId}`}>{title}</Link>
@@ -28,6 +28,6 @@ export const GalleryDetails = ({
           {user.first_name} {user.last_name}
         </Link>
       </p>
-    </span>
+    </div>
   );
 };
