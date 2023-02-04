@@ -35,7 +35,7 @@ export const GalleryForm = ({
             className="form-control"
             id="description"
             type="text"
-            value={gallery.description}
+            value={gallery?.description}
             rows="7"
             maxLength="1000"
             onChange={(e) =>
