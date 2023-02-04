@@ -20,7 +20,8 @@ export const CreateNewGalleryPage = () => {
       ...gallery,
       image_url: [...linkInput.map((obj) => obj.link)],
     });
-  }, [linkInput, gallery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [linkInput]);
 
   const handleSubmitNewGallery = (e) => {
     e.preventDefault();
