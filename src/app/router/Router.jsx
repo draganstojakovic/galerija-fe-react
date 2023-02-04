@@ -9,6 +9,7 @@ import { CreateNewGalleryPage } from "../views/CreateNewGalleryPage";
 import { SingleGalleryPage } from "../views/SingleGalleryPage";
 import { AuthorProfilePage } from "../views/AuthorProfilePage";
 import { NotFoundPage } from "../views/NotFountPage";
+import { EditGalleryPage } from "../views/EditGalleryPage";
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
       <GuardedRoute component={MyGalleriesPage} path="/my-galleries" />
       <Route component={SingleGalleryPage} path="/galleries/:id" />
       <Route component={AuthorProfilePage} path="/authors/:id" />
+      <GuardedRoute component={EditGalleryPage} path="/edit-gallery/:id" />
       <GuardedRoute component={CreateNewGalleryPage} path="/create" />
       <GuestRoute component={LoginPage} path="/login" />
       <GuestRoute component={RegisterPage} path="/register" />

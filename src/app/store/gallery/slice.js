@@ -28,6 +28,7 @@ const gallery = createSlice({
     },
     submitNewgalleryAction: () => {},
     deleteGalleryAction: () => {},
+    editGalleryAction: () => {},
   },
 });
 
@@ -36,5 +37,6 @@ export const {
   setSingleGalleryAction,
   submitNewgalleryAction,
   deleteGalleryAction,
+  editGalleryAction,
 } = gallery.actions;
 export default gallery.reducer;

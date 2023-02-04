@@ -39,10 +39,23 @@ function* deleteGallerySagaWatcher() {
   yield takeEvery("gallery/deleteGalleryAction", deleteGallery);
 }
 
+function* editGallery({ payload }) {
+  try {
+    yield call([galleryService, "update"], payload.id, payload.data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function* editGallerySagaWatcher() {
+  yield takeEvery("gallery/editGalleryAction", editGallery);
+}
+
 export default function* rootGallerySaga() {
   yield all([
     fork(getSingleGallerySagaWatcher),
     fork(submitNewGallerySagaWatcher),
     fork(deleteGallerySagaWatcher),
+    fork(editGallerySagaWatcher),
   ]);
 }

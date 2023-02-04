@@ -76,6 +76,12 @@ class GalleryService extends ApiService {
       headers: this.authService.getHeaders(),
     });
   }
+
+  async update(id, gallery) {
+    return await this.client.put(`/galleries/${id}`, gallery, {
+      headers: this.authService.getHeaders(),
+    });
+  }
 }
 
 export const galleryService = new GalleryService();

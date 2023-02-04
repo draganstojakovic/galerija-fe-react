@@ -100,14 +100,29 @@ export const SingleGalleryPage = () => {
       {authUser.id === singleGallery.user_id && (
         <>
           <br />
-          <div className="d-flex justify-content-center">
-            <button
-              className="btn btn-primary"
-              onClick={() => handleDeleteGallery(singleGallery.id)}
-            >
-              Delete Gallery
-            </button>
+          <div className="btn-group">
+            <div style={{ color: "#ffffff" }}>__</div>
+            <div className="d-flex justify-content-center">
+              <button
+                className="btn btn-primary"
+                onClick={() => handleDeleteGallery(singleGallery.id)}
+              >
+                Delete Gallery
+              </button>
+            </div>
+            <div style={{ color: "#ffffff" }}>__</div>
+            <div className="d-flex justify-content-center">
+              <button
+                className="btn btn-primary"
+                onClick={() =>
+                  history.push(`/edit-gallery/${singleGallery.id}`)
+                }
+              >
+                Edit Gallery
+              </button>
+            </div>
           </div>
+          <br />
         </>
       )}
       <br />
