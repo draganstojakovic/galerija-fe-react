@@ -75,7 +75,6 @@ export const CreateNewGalleryPage = () => {
         formText={"Create New Gallery"}
         addInput={handleAddInputField}
         linkInput={linkInput}
-        onChangeLink={setLinkInput}
         cancel={handleCancelAndRedirect}
         removeLink={handleRemoveLink}
         handleInputChange={handleLinks}

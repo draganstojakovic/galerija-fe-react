@@ -5,7 +5,6 @@ export const GalleryForm = ({
   formText,
   addInput,
   linkInput,
-  // onChangeLink,
   cancel,
   removeLink,
   handleInputChange,
@@ -59,9 +58,47 @@ export const GalleryForm = ({
                   onChange={(e) => handleInputChange(e, i)}
                 />
                 <br />
-                <div style={{ color: "#ffffff" }}>__</div>
                 {linkInput.length !== 1 && (
                   <>
+                    {Number(i) === 0 && (
+                      <>
+                        <div style={{ color: "#ffffff" }}>__</div>
+                        <button type="button" className="btn btn-primary">
+                          🡳
+                        </button>
+                      </>
+                    )}
+                    {Number(i) !== 0 &&
+                      Number(i) !==
+                        Number(
+                          linkInput.lastIndexOf(linkInput[linkInput.length - 1])
+                        ) && (
+                        <>
+                          <div style={{ color: "#ffffff" }}>__</div>
+                          <button type="button" className="btn btn-primary">
+                            🡳
+                          </button>
+                          <div style={{ color: "#ffffff" }}>__</div>
+                          <button type="button" className="btn btn-primary">
+                            🡱
+                          </button>
+                        </>
+                      )}
+                    {Number(
+                      linkInput.lastIndexOf(linkInput[linkInput.length - 1])
+                    ) === Number(i) && (
+                      <>
+                        <div style={{ color: "#ffffff" }}>__</div>
+                        <button type="button" className="btn btn-primary">
+                          🡱
+                        </button>
+                      </>
+                    )}
+                  </>
+                )}
+                {linkInput.length !== 1 && (
+                  <>
+                    <div style={{ color: "#ffffff" }}>__</div>
                     <button
                       type="button"
                       className="btn btn-primary"
