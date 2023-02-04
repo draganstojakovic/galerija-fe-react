@@ -34,7 +34,7 @@ export const MyGalleriesPage = () => {
     if (searchMode) {
       if (
         Number(filteredGalleries?.last_page) ===
-        Number(filteredGalleries?.last_page)
+        Number(filteredGalleries?.current_page)
       ) {
         return;
       }

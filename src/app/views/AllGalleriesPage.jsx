@@ -54,7 +54,7 @@ export const AllGalleriesPage = () => {
       }
     }
   };
-  console.log(filteredGalleris)
+
   const handleFetchSearchedTerm = (e) => {
     e.preventDefault();
     if (!searchTerm.searchTerm) return;

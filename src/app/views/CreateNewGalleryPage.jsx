@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { submitNewgalleryAction } from "../store/gallery/slice";
 import { GalleryForm } from "./components/GalleryForm.component";
+import { useHistory } from "react-router-dom";
 
 export const CreateNewGalleryPage = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [gallery, setGallery] = useState({
     title: "",
@@ -11,25 +13,56 @@ export const CreateNewGalleryPage = () => {
     image_url: [],
   });
 
+  const [linkInput, setLinkInput] = useState([{ link: "" }]);
+
+  useEffect(() => {
+    setGallery({
+      ...gallery,
+      image_url: [...linkInput.map((obj) => obj.link)],
+    });
+  }, [linkInput, gallery]);
+
   const handleSubmitNewGallery = (e) => {
     e.preventDefault();
     if (!gallery.title) {
       alert("Missing title");
       return;
     }
-    if (!gallery.image_url) {
-      alert("Add at least one image");
+    if (gallery.image_url.length === 0) {
+      alert("Missing images.");
       return;
     }
     try {
       dispatch(submitNewgalleryAction(gallery));
-      window.location.replace("/");
-      // na liniji iznad izazivam osvezavanje stranice jer ne mili mi se dodavati ovu
-      //  galeriju u paginisani niz galerija jer bi to napravilo problem zbog nacina na
-      // koji brojanje stranice funkcionise
+      history.push("/my-galleries");
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleCancelAndRedirect = () => {
+    history.push("/");
+  };
+
+  const handleRemoveLink = (index) => {
+    setLinkInput(linkInput.filter((el, i) => i !== index));
+  };
+
+  const handleAddInputField = () => {
+    setLinkInput([...linkInput, { link: "" }]);
+  };
+
+  const handleLinks = (e, index) => {
+    const result = linkInput.map((linkObj, i) => {
+      if (i === index) {
+        return {
+          ...linkObj,
+          link: e.target.value,
+        };
+      }
+      return linkObj;
+    });
+    setLinkInput(result);
   };
 
   return (
@@ -39,7 +72,15 @@ export const CreateNewGalleryPage = () => {
         onChange={setGallery}
         handleSubmit={handleSubmitNewGallery}
         formText={"Create New Gallery"}
+        addInput={handleAddInputField}
+        linkInput={linkInput}
+        onChangeLink={setLinkInput}
+        cancel={handleCancelAndRedirect}
+        removeLink={handleRemoveLink}
+        handleInputChange={handleLinks}
       />
+      <br />
+      <br />
     </>
   );
 };

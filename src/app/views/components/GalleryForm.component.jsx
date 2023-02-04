@@ -1,4 +1,15 @@
-export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
+export const GalleryForm = ({
+  gallery,
+  onChange,
+  handleSubmit,
+  formText,
+  addInput,
+  linkInput,
+  // onChangeLink,
+  cancel,
+  removeLink,
+  handleInputChange,
+}) => {
   return (
     <>
       <h1 className="d-flex justify-content-center">{formText}</h1>
@@ -35,23 +46,60 @@ export const GalleryForm = ({ gallery, onChange, handleSubmit, formText }) => {
         <br />
         <div className="form-group mx-sm-3 mb-2">
           <label htmlFor="image_url">Image URLs*</label>
-          <input
-            className="form-control"
-            id="image_url"
-            type="text"
-            value={gallery.image_url}
-            required
-            pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)(.jpg|.jpeg|.png|.gif)"
-            onChange={(e) =>
-              onChange({ ...gallery, image_url: [e.target.value] })
-            }
-          />
+          {Array.isArray(linkInput) &&
+            linkInput.map((input, i) => (
+              <div className="input-group mb-3" key={i}>
+                <input
+                  className="form-control"
+                  id="image_url"
+                  type="text"
+                  value={input.link}
+                  required
+                  pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)(.jpg|.jpeg|.png|.gif)"
+                  onChange={(e) => handleInputChange(e, i)}
+                />
+                <br />
+                <div style={{ color: "#ffffff" }}>__</div>
+                {linkInput.length !== 1 && (
+                  <>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      onClick={() => removeLink(i)}
+                    >
+                      Remove Image
+                    </button>
+                  </>
+                )}
+              </div>
+            ))}
+          <br />
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => addInput()}
+          >
+            Add another image
+          </button>
         </div>
         <br />
-        <div className="d-flex justify-content-center">
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+        <div className="btn-group">
+          <div style={{ color: "#ffffff" }}>__</div>
+          <div className="d-flex justify-content-center">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </div>
+          <div style={{ color: "#ffffff" }}>__</div>
+          <div className="d-flex justify-content-center">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => cancel()}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </form>
       <br />
