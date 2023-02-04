@@ -8,6 +8,7 @@ export const GalleryForm = ({
   cancel,
   removeLink,
   handleInputChange,
+  // reorderLinks,
 }) => {
   return (
     <>
@@ -58,12 +59,16 @@ export const GalleryForm = ({
                   onChange={(e) => handleInputChange(e, i)}
                 />
                 <br />
-                {linkInput.length !== 1 && (
+                {/* {linkInput.length !== 1 && (
                   <>
                     {Number(i) === 0 && (
                       <>
                         <div style={{ color: "#ffffff" }}>__</div>
-                        <button type="button" className="btn btn-primary">
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => reorderLinks(i, "DOWN")}
+                        >
                           🡳
                         </button>
                       </>
@@ -75,11 +80,19 @@ export const GalleryForm = ({
                         ) && (
                         <>
                           <div style={{ color: "#ffffff" }}>__</div>
-                          <button type="button" className="btn btn-primary">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => reorderLinks(i, "DOWN")}
+                          >
                             🡳
                           </button>
                           <div style={{ color: "#ffffff" }}>__</div>
-                          <button type="button" className="btn btn-primary">
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => reorderLinks(i, "UP")}
+                          >
                             🡱
                           </button>
                         </>
@@ -89,13 +102,17 @@ export const GalleryForm = ({
                     ) === Number(i) && (
                       <>
                         <div style={{ color: "#ffffff" }}>__</div>
-                        <button type="button" className="btn btn-primary">
+                        <button
+                          type="button"
+                          className="btn btn-primary"
+                          onClick={() => reorderLinks(i, "UP")}
+                        >
                           🡱
                         </button>
                       </>
                     )}
                   </>
-                )}
+                )} */}
                 {linkInput.length !== 1 && (
                   <>
                     <div style={{ color: "#ffffff" }}>__</div>
