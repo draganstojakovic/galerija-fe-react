@@ -8,7 +8,7 @@ export const GalleryForm = ({
   cancel,
   removeLink,
   handleInputChange,
-  // reorderLinks,
+  reorderLinks,
 }) => {
   return (
     <>
@@ -59,7 +59,7 @@ export const GalleryForm = ({
                   onChange={(e) => handleInputChange(e, i)}
                 />
                 <br />
-                {/* {linkInput.length !== 1 && (
+                {linkInput.length !== 1 && (
                   <>
                     {Number(i) === 0 && (
                       <>
@@ -112,7 +112,7 @@ export const GalleryForm = ({
                       </>
                     )}
                   </>
-                )} */}
+                )}
                 {linkInput.length !== 1 && (
                   <>
                     <div style={{ color: "#ffffff" }}>__</div>

@@ -33,6 +33,7 @@ export const EditGalleryPage = () => {
 
   useEffect(() => {
     setReduxStateToComponentState();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [singleGallery, dispatch]);
 
   const setReduxStateToComponentState = () => {
@@ -90,6 +91,30 @@ export const EditGalleryPage = () => {
     setLinkInput(result);
   };
 
+  const handleReorderLinks = (i, direction) => {
+    const updatedArr = [...linkInput];
+    if (direction === "UP") {
+      let arr = [];
+      const sorted = reorderArray(updatedArr, i, -1);
+      sorted.map((object) => arr.push({ link: object.link }));
+      setLinkInput(arr);
+    }
+    if (direction === "DOWN") {
+      let arr = [];
+      const sorted = reorderArray(updatedArr, i, 1);
+      sorted.map((object) => arr.push({ link: object.link }));
+      setLinkInput(arr);
+    }
+  };
+
+  const reorderArray = (array, i, delta) => {
+    let newIndex = i + delta;
+    if (newIndex < 0 || Number(newIndex) === Number(array.length)) return;
+    let indexes = [i, newIndex].sort((a, b) => a - b);
+    array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
+    return array;
+  };
+
   return (
     <>
       <GalleryForm
@@ -102,7 +127,7 @@ export const EditGalleryPage = () => {
         cancel={handleCancelAndRedirect}
         removeLink={handleRemoveLink}
         handleInputChange={handleLinks}
-        // reorderLinks={handleReorderLinks}
+        reorderLinks={handleReorderLinks}
       />
       <br />
       <br />

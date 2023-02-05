@@ -14,7 +14,6 @@ export const CreateNewGalleryPage = () => {
   });
 
   const [linkInput, setLinkInput] = useState([{ link: "" }]);
-  // const [reorderedLinks, setReorderedLinks] = useState([]);
 
   useEffect(() => {
     setGallery({
@@ -23,10 +22,6 @@ export const CreateNewGalleryPage = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [linkInput]);
-
-  // useEffect(() => {
-  //   setLinkInput(reorderedLinks);
-  // }, [reorderedLinks]);
 
   const handleSubmitNewGallery = (e) => {
     e.preventDefault();
@@ -71,35 +66,29 @@ export const CreateNewGalleryPage = () => {
     setLinkInput(result);
   };
 
-  // const handleReorderLinks = (i, direction) => {
-  //   const updatedArr = [...linkInput];
-  //   if (direction === "UP") {
-  //     setReorderedLinks(
-  //       reorderArray({ oldIndex: i, newIndex: i + -1 }, updatedArr)
-  //     );
-  //   }
-  //   if (direction === "DOWN") {
-  //     setReorderedLinks(
-  //       reorderArray({ oldIndex: i, newIndex: i + 1 }, updatedArr)
-  //     );
-  //   }
-  // };
-  // console.log(reorderedLinks)
-  // const reorderArray = (event, originalArray) => {
-  //   const movedItem = originalArray.find(
-  //     (el, index) => index === event.oldIndex
-  //   );
-  //   const remainingItems = originalArray.filter(
-  //     (el, index) => index !== event.oldIndex
-  //   );
-  //   const reorderedItems = [
-  //     ...remainingItems.slice(0, event.newIndex),
-  //     movedItem,
-  //     ...remainingItems.slice(event.newIndex),
-  //   ];
-    
-  //   return reorderedItems;
-  // };
+  const handleReorderLinks = (i, direction) => {
+    const updatedArr = [...linkInput];
+    if (direction === "UP") {
+      let arr = [];
+      const sorted = reorderArray(updatedArr, i, -1);
+      sorted.map((object) => arr.push({ link: object.link }));
+      setLinkInput(arr);
+    }
+    if (direction === "DOWN") {
+      let arr = [];
+      const sorted = reorderArray(updatedArr, i, 1);
+      sorted.map((object) => arr.push({ link: object.link }));
+      setLinkInput(arr);
+    }
+  };
+
+  const reorderArray = (array, i, delta) => {
+    let newIndex = i + delta;
+    if (newIndex < 0 || Number(newIndex) === Number(array.length)) return;
+    let indexes = [i, newIndex].sort((a, b) => a - b);
+    array.splice(indexes[0], 2, array[indexes[1]], array[indexes[0]]);
+    return array;
+  };
 
   return (
     <>
@@ -113,7 +102,7 @@ export const CreateNewGalleryPage = () => {
         cancel={handleCancelAndRedirect}
         removeLink={handleRemoveLink}
         handleInputChange={handleLinks}
-        // reorderLinks={handleReorderLinks}
+        reorderLinks={handleReorderLinks}
       />
       <br />
       <br />
