@@ -7,7 +7,7 @@ function* logInUser({ payload }) {
     const response = yield call([authService, "login"], payload);
     yield put(setAuthUserAction(response.data));
   } catch (err) {
-    console.error(err);
+    if (err.response.status === 401) alert("Incorrect email or password.");
   }
 }
 

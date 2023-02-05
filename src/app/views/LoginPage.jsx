@@ -19,7 +19,7 @@ export const LoginPage = () => {
     try {
       dispatch(logInAuthUserAction(user));
     } catch (err) {
-      console.error(err)
+      console.error("jebem");
     }
   };
 
