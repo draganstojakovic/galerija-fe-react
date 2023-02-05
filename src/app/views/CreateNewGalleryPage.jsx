@@ -42,7 +42,7 @@ export const CreateNewGalleryPage = () => {
   };
 
   const handleCancelAndRedirect = () => {
-    history.push("/");
+    history.push("/my-galleries");
   };
 
   const handleRemoveLink = (index) => {

@@ -104,7 +104,7 @@ export const UserForm = ({
               />
             </div>
             <div className="form-group mx-sm-3 mb-2">
-              <label htmlFor="terms">Terms of usage*</label>
+              <label htmlFor="terms">Terms and conditions*</label>
               <input
                 className="form-check-input"
                 id="terms"
